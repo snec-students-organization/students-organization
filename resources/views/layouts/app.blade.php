@@ -363,6 +363,74 @@
             width: auto;
             margin-right: 10px;
         }
+        @media (max-width: 767.98px) {
+    /* Reduce navbar height on small screen */
+    .navbar {
+        height: auto;
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+    }
+
+    /* Smaller logo image */
+    .logo-img {
+        height: 30px;
+        margin-right: 8px;
+    }
+
+    /* Smaller brand font size */
+    .navbar-brand {
+        font-size: 1.3rem;
+    }
+
+    /* Reduce nav-link padding for less horizontal space */
+    .nav-link {
+        padding: 0.4rem 0.6rem !important;
+        font-size: 0.9rem;
+        margin: 0 0.1rem;
+    }
+
+    /* Smaller icon sizes in nav-links */
+    .nav-link i,
+    .bi {
+        font-size: 1rem;
+    }
+
+    /* Make navbar toggler bigger for easy tap */
+    .navbar-toggler {
+        padding: 0.4rem 0.6rem;
+        font-size: 1.2rem;
+    }
+
+    /* Dropdown menu width full */
+    .dropdown-menu-notifications {
+        width: 100% !important;
+        max-height: 300px;
+    }
+
+    /* Stack nav links vertically inside collapse */
+    .navbar-collapse ul.navbar-nav {
+        flex-direction: column;
+    }
+
+    /* Reduce space between nav items */
+    .navbar-nav .nav-item {
+        margin-bottom: 0.25rem;
+    }
+
+    /* Adjust user avatar smaller with less margin */
+    .user-avatar {
+        width: 28px;
+        height: 28px;
+        margin-right: 0.3rem;
+        font-size: 0.8rem;
+    }
+
+    /* Notification icon size */
+    .notification-indicator i {
+        font-size: 1.2rem;
+    }
+}
+
     </style>
 
     @yield('styles')
