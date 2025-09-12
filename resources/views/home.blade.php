@@ -820,6 +820,132 @@ html, body {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.9; }
         }
+
+
+        /* Features section general styling */
+#features {
+    padding: 60px 20px;
+}
+
+#features .section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+#features .section-subtitle {
+    font-size: 1rem;
+    color: #6c757d;
+    margin-bottom: 30px;
+}
+
+#features .feature-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 12px;
+    background: #0d1b2a; /* dark bg look */
+    color: #fff;
+}
+
+#features .feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+#features .feature-icon {
+    font-size: 2rem;
+    color: #00bcd4;
+    margin-bottom: 12px;
+}
+
+/* Card title & text */
+#features .card-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+#features .card-text {
+    font-size: 0.95rem;
+    color: #dee2e6;
+    margin-bottom: 15px;
+    min-height: 60px; /* keeps cards consistent height */
+}
+
+/* Buttons */
+#features .btn {
+    border-radius: 25px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+#features .btn:hover {
+    background: #00bcd4;
+    color: #fff;
+}
+
+/* Responsive styling */
+@media (max-width: 991.98px) {
+    #features {
+        padding: 40px 15px;
+    }
+}
+
+/* Mobile screens: 2 per row & compact */
+@media (max-width: 575.98px) {
+    #features {
+        padding: 25px 10px;
+    }
+
+    #features .section-title {
+        font-size: 1.4rem;
+    }
+
+    #features .section-subtitle {
+        font-size: 0.9rem;
+    }
+
+    #features .feature-card {
+        padding: 12px !important;
+        margin-bottom: 12px;
+    }
+
+    #features .feature-icon {
+        font-size: 1.5rem;
+        margin-bottom: 8px;
+    }
+
+    #features .card-title {
+        font-size: 1rem;
+    }
+
+    #features .card-text {
+        font-size: 0.8rem;
+        min-height: 50px;
+    }
+
+    #features .btn {
+    display: block;
+    width: 100%;
+    font-size: 0.7rem;      /* smaller text */
+    padding: 4px 8px;       /* less padding */
+    margin-top: 6px;
+    text-align: center;
+    border-radius: 18px;    /* smaller rounded button */
+    white-space: normal;
+    word-break: break-word;
+}
+
+
+    #features .container-fluid {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    #features .row > div {
+        padding-left: 6px;
+        padding-right: 6px;
+    }
+}
     </style>
 @endif
 
@@ -884,27 +1010,30 @@ html, body {
             <p class="section-subtitle">Everything you need to manage your organizations and events</p>
         </div>
         <div class="row">
-            <div class="col-lg-4 col-md-6 mb-4">
+            <div class="col-lg-4 col-md-6 col-6 mb-4">
+
                 <div class="card feature-card h-100 border-0">
                     <div class="card-body text-center p-4">
                         <div class="feature-icon"><i class="fas fa-calendar-check"></i></div>
                         <h4 class="card-title">Event Management</h4>
-                        <p class="card-text">Create, manage, and promote events with our comprehensive event management system.</p>
+                        <p class="card-text"> check events with our comprehensive event calendar.</p>
                         <a href="/calendar" class="btn btn-outline-primary">Explore Events</a>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 mb-4">
+           <div class="col-lg-4 col-md-6 col-6 mb-4">
+
                 <div class="card feature-card h-100 border-0">
                     <div class="card-body text-center p-4">
                         <div class="feature-icon"><i class="fas fa-users"></i></div>
                         <h4 class="card-title">Organization Directory</h4>
                         <p class="card-text">Discover and connect with various organizations in your community.</p>
-                        <a href="/organizations" class="btn btn-outline-primary">View Organizations</a>
+                        <a href="/organizations" class="btn btn-outline-primary">Organizations</a>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 mb-4">
+           <div class="col-lg-4 col-md-6 col-6 mb-4">
+
                 <div class="card feature-card h-100 border-0">
                     <div class="card-body text-center p-4">
                         <div class="feature-icon"><i class="fas fa-camera"></i></div>
@@ -914,33 +1043,36 @@ html, body {
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 mb-4">
+           <div class="col-lg-4 col-md-6 col-6 mb-4">
+
                 <div class="card feature-card h-100 border-0">
                     <div class="card-body text-center p-4">
                         <div class="feature-icon"><i class="fas fa-bell"></i></div>
                         <h4 class="card-title">Notifications</h4>
-                        <p class="card-text">Stay updated with personalized notifications for events and organizations you follow.</p>
-                        <a href="/notifications" class="btn btn-outline-primary">Check Notifications</a>
+                        <p class="card-text">Stay updated with notifications for events and organizations you follow.</p>
+                        <a href="/notifications" class="btn btn-outline-primary"> Notifications</a>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 mb-4">
+          <div class="col-lg-4 col-md-6 col-6 mb-4">
+
                 <div class="card feature-card h-100 border-0">
                     <div class="card-body text-center p-4">
                         <div class="feature-icon"><i class="fas fa-user-friends"></i></div>
                         <h4 class="card-title">Committee Management</h4>
                         <p class="card-text">Efficiently manage committee members and their responsibilities.</p>
-                        <a href="/committees" class="btn btn-outline-primary">View Committees</a>
+                        <a href="/committees" class="btn btn-outline-primary">Committees</a>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 mb-4">
+            <div class="col-lg-4 col-md-6 col-6 mb-4">
+
                 <div class="card feature-card h-100 border-0">
                     <div class="card-body text-center p-4">
                         <div class="feature-icon"><i class="fas fa-user-shield"></i></div>
-                        <h4 class="card-title">Admin Dashboard</h4>
-                        <p class="card-text">Powerful tools for administrators to manage the entire platform.</p>
-                        <a href="/login" class="btn btn-outline-primary">Admin Login</a>
+                        <h4 class="card-title">College Dashboard</h4>
+                        <p class="card-text">Powerful tools for institutions to manage their students.</p>
+                        <a href="/institution/login" class="btn btn-outline-primary">College Login</a>
                     </div>
                 </div>
             </div>
