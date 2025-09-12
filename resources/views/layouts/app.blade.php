@@ -430,6 +430,25 @@
         font-size: 1.2rem;
     }
 }
+/* Full width only on small devices */
+@media (max-width: 767.98px) {
+    .container-fluid,
+    .hero-section,
+    .hero-container,
+    main,
+    footer {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        margin: 0 !important;
+    }
+
+    html, body {
+        overflow-x: hidden;
+    }
+}
+
 
     </style>
 
