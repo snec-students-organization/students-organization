@@ -24,6 +24,9 @@ use App\Http\Controllers\InstitutionOrganizationController;
 use App\Http\Controllers\Admin\AdminInstitutionController;
 use App\Http\Controllers\AboutController;
 
+use App\Http\Controllers\InstitutionDataController;
+use App\Http\Controllers\Admin\FeatureFlagController;
+use App\Http\Controllers\Admin\DataCollectionController;
 // =============================
 // Public Routes
 // =============================
@@ -175,10 +178,26 @@ Route::middleware(['auth:institution'])
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/institutions', [AdminInstitutionController::class, 'index'])->name('institutions.index');
     Route::get('/institutions/{institution}', [AdminInstitutionController::class, 'show'])->name('institutions.show');
+
+    // in routes/web.php under admin group
+Route::get('feature-flags/data-collection', [FeatureFlagController::class, 'edit'])->name('feature_flags.edit');
+Route::post('feature-flags/data-collection', [FeatureFlagController::class, 'update'])->name('feature_flags.update');
 });
 
 
 
+
+
+Route::middleware('auth:institution')->group(function () {
+    Route::get('/institution-data', [InstitutionDataController::class, 'create'])->name('institution-data.create');
+    Route::post('/institution-data', [InstitutionDataController::class, 'store'])->name('institution-data.store');
+});
+
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    
+    Route::get('/data-collection/institutions', [DataCollectionController::class, 'institutionDataIndex'])->name('data.collection.institutions');
+});
 
 
 
