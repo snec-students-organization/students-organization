@@ -1168,7 +1168,9 @@ html, body {
         padding-right: 6px;
     }
 }
-    </style>
+
+
+</style>
 @endif
 
 
@@ -1232,7 +1234,7 @@ html, body {
             <p class="section-subtitle">Everything you need to manage your organizations and events</p>
         </div>
         <div class="row">
-            <div class="col-lg-4 col-md-6 col-6 mb-4">
+            <div class="col-lg-4 col-md-6  mb-4">
 
                 <div class="card feature-card h-100 border-0">
                     <div class="card-body text-center p-4">
@@ -1243,7 +1245,7 @@ html, body {
                     </div>
                 </div>
             </div>
-           <div class="col-lg-4 col-md-6 col-6 mb-4">
+           <div class="col-lg-4 col-md-6  mb-4">
 
                 <div class="card feature-card h-100 border-0">
                     <div class="card-body text-center p-4">
@@ -1254,7 +1256,7 @@ html, body {
                     </div>
                 </div>
             </div>
-           <div class="col-lg-4 col-md-6 col-6 mb-4">
+           <div class="col-lg-4 col-md-6  mb-4">
 
                 <div class="card feature-card h-100 border-0">
                     <div class="card-body text-center p-4">
@@ -1265,7 +1267,7 @@ html, body {
                     </div>
                 </div>
             </div>
-           <div class="col-lg-4 col-md-6 col-6 mb-4">
+           <div class="col-lg-4 col-md-6  mb-4">
 
                 <div class="card feature-card h-100 border-0">
                     <div class="card-body text-center p-4">
@@ -1276,7 +1278,7 @@ html, body {
                     </div>
                 </div>
             </div>
-          <div class="col-lg-4 col-md-6 col-6 mb-4">
+          <div class="col-lg-4 col-md-6  mb-4">
 
                 <div class="card feature-card h-100 border-0">
                     <div class="card-body text-center p-4">
@@ -1287,7 +1289,7 @@ html, body {
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 col-6 mb-4">
+            <div class="col-lg-4 col-md-6  mb-4">
 
                 <div class="card feature-card h-100 border-0">
                     <div class="card-body text-center p-4">
