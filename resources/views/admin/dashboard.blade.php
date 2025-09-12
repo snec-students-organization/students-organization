@@ -31,6 +31,12 @@
 .card-gradient-4 {
     background: linear-gradient(135deg, #0dcaf0 0%, #0aa2c0 100%);
 }
+.card-gradient-5 {
+    background: linear-gradient(135deg, #6f42c1 0%, #593196 100%);
+}
+.card-gradient-6 {
+    background: linear-gradient(135deg, #dc3545 0%, #a71d2a 100%);
+}
 .recent-activity {
     max-height: 400px;
     overflow-y: auto;
@@ -57,6 +63,7 @@
 
     <!-- Stats Cards -->
     <div class="row g-4 mb-4">
+        {{-- Total Organizations --}}
         <div class="col-xl-3 col-md-6">
             <div class="card dashboard-card shadow-sm card-gradient-1 text-white">
                 <div class="card-body d-flex justify-content-between align-items-center">
@@ -69,11 +76,14 @@
                     </div>
                 </div>
                 <div class="card-footer bg-transparent">
-                    <a href="{{ route('organizations.index') }}" class="text-white small">View all organizations <i class="bi bi-arrow-right"></i></a>
+                    <a href="{{ route('organizations.index') }}" class="text-white small">
+                        View all organizations <i class="bi bi-arrow-right"></i>
+                    </a>
                 </div>
             </div>
         </div>
 
+        {{-- Total Events --}}
         <div class="col-xl-3 col-md-6">
             <div class="card dashboard-card shadow-sm card-gradient-2 text-white">
                 <div class="card-body d-flex justify-content-between align-items-center">
@@ -86,11 +96,14 @@
                     </div>
                 </div>
                 <div class="card-footer bg-transparent">
-                    <a href="{{ route('admin.events.index') }}" class="text-white small">View all events <i class="bi bi-arrow-right"></i></a>
+                    <a href="{{ route('admin.events.index') }}" class="text-white small">
+                        View all events <i class="bi bi-arrow-right"></i>
+                    </a>
                 </div>
             </div>
         </div>
 
+        {{-- Total Users --}}
         <div class="col-xl-3 col-md-6">
             <div class="card dashboard-card shadow-sm card-gradient-3 text-white">
                 <div class="card-body d-flex justify-content-between align-items-center">
@@ -103,12 +116,59 @@
                     </div>
                 </div>
                 <div class="card-footer bg-transparent">
-                    <a href="{{ route('admin.users.index') }}" class="text-white small">Manage users <i class="bi bi-arrow-right"></i></a>
+                    <a href="{{ route('admin.users.index') }}" class="text-white small">
+                        Manage users <i class="bi bi-arrow-right"></i>
+                    </a>
                 </div>
             </div>
         </div>
+
+        {{-- Feature Flag Edit --}}
+        <div class="col-xl-3 col-md-6">
+            <a href="{{ route('admin.feature_flags.edit') }}" style="text-decoration:none;">
+                <div class="card dashboard-card shadow-sm card-gradient-5 text-white">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6>Edit Datacollection Section</h6>
+                            <p class="mb-0">Turn it on/off</p>
+                        </div>
+                        <div class="stat-icon bg-white text-purple">
+                            <i class="bi bi-toggle-on fs-3"></i>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <span class="text-white small">
+                            Edit  <i class="bi bi-arrow-right"></i>
+                        </span>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        {{-- Data Collection --}}
+        <div class="col-xl-3 col-md-6">
+            <a href="{{ route('admin.data.collection.institutions') }}" style="text-decoration:none;">
+                <div class="card dashboard-card shadow-sm card-gradient-6 text-white">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6>Data Collection</h6>
+                            <p class="mb-0">Check Collected Data</p>
+                        </div>
+                        <div class="stat-icon bg-white text-danger">
+                            <i class="bi bi-collection fs-3"></i>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <span class="text-white small">
+                            View data <i class="bi bi-arrow-right"></i>
+                        </span>
+                    </div>
+                </div>
+            </a>
+        </div>
     </div>
 
+    <!-- Quick Actions, Upcoming Events, Recent Activity -->
     <div class="row g-4">
         <!-- Quick Actions -->
         <div class="col-xl-4 col-lg-6">
@@ -183,6 +243,6 @@
             </div>
         </div>
     </div>
-</div>
 
+</div>
 @endsection
