@@ -127,7 +127,7 @@
     <div class="login-left">
       <!-- Replace 'institution-logo.png' with your logo -->
       <img src="/images/SSO.png" alt="Institution Logo">
-      <h1>Institution Login</h1>
+      <h1>SNEC STUDENTS' ORGANIZATION <br>(SSO) <br>College Login</h1>
       <p>Secure access to your organization dashboard</p>
     </div>
 

@@ -161,7 +161,8 @@
     <div class="login-left">
       <!-- Replace 'logo.png' with your actual image -->
       <img src="images/SSO.png" alt="SNEC Logo">
-      <h1>SNEC STUDENTS' ORGANIZATION</h1>
+      <h1>SNEC STUDENTS' ORGANIZATION <br>(SSO)</h1>
+      
       <p>Empowering Future Leaders</p>
     </div>
 

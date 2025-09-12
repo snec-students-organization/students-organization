@@ -1185,7 +1185,8 @@ html, body {
     <div class="container">
         <div class="row">
             <div class="col-lg-4 mb-4 mb-lg-0">
-                <h5 class="fw-bold mb-4">SNEC SSO</h5>
+                <h5 class="fw-bold mb-4">SNEC STUDENTS’ ORGANIZATION (SS0)
+</h5>
                 <p>A comprehensive platform for managing organizations, events, and community engagement.</p>
                 <div class="d-flex gap-3">
                     <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -1214,15 +1215,18 @@ html, body {
             <div class="col-lg-4 col-md-4">
                 <h5 class="fw-bold mb-4">Contact Us</h5>
                 <ul class="list-unstyled">
-                    <li class="mb-2"><i class="fas fa-envelope me-2"></i> info@snec-sso.com</li>
-                    <li class="mb-2"><i class="fas fa-phone me-2"></i> (123) 456-7890</li>
-                    <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> 123 Main St, City, Country</li>
+                    <li class="mb-2"><i class="fas fa-envelope me-2"></i> ssocentralcommittee@gmail.com
+</li>
+                    <li class="mb-2"><i class="fas fa-phone me-2"></i> +91 9061347325</li>
+                    <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> SAMASTHA National Education Council (SNEC)
+Central Office, SAMASTHA Karyalayam, Francis Road, Kozhikode-03
+</li>
                 </ul>
             </div>
         </div>
         <hr class="my-4" style="border-color: rgba(99, 255, 214, 0.2);">
         <div class="text-center">
-            <p class="mb-0">&copy; 2023 SNEC SSO. All rights reserved.</p>
+            <p class="mb-0">&copy; 2025 SNEC STUDENTS’ ORGANIZATION . All rights reserved.</p>
         </div>
     </div>
 </footer>
