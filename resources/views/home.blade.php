@@ -656,8 +656,230 @@ html, body {
 
 
 
+@media (max-width: 767.98px) {
+    footer .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    footer .row {
+        flex-direction: column !important;
+        text-align: center;
+    }
+
+    footer .col-lg-4,
+    footer .col-lg-2,
+    footer .col-md-4 {
+        max-width: 100% !important;
+        flex: 0 0 100% !important;
+        margin-bottom: 20px;
+    }
+
+    footer h5 {
+        font-size: 1.25rem;
+        margin-bottom: 15px;
+    }
+
+    footer ul.list-unstyled {
+        padding-left: 0;
+        list-style: none;
+    }
+
+    footer ul.list-unstyled li {
+        margin-bottom: 10px;
+    }
+
+    footer ul.list-unstyled li a {
+        font-size: 1rem;
+        display: inline-block;
+        width: 100%;
+        padding: 8px 0;
+    }
+
+    footer .d-flex.gap-3 {
+        justify-content: center;
+    }
+
+    footer .d-flex.gap-3 a {
+        font-size: 1.5rem;
+        padding: 10px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background-color: rgba(99, 255, 214, 0.1);
+        transition: background-color 0.3s ease;
+    }
+
+    footer .d-flex.gap-3 a:hover {
+        background-color: rgba(99, 255, 214, 0.3);
+        color: #63ffd6;
+        text-decoration: none;
+    }
+
+    footer p.mb-0 {
+        font-size: 0.9rem;
+        padding: 10px 0;
+    }
+}
 
 
+
+@media (max-width: 767.98px) {
+    #events .container-fluid {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    #events .row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    #events .col-md-4 {
+        max-width: 100% !important;
+        flex: 0 0 100% !important;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    #events .card.event-card {
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        border-radius: 10px;
+    }
+
+    #events .card-img-top {
+        height: auto;
+        max-height: 200px;
+        object-fit: cover;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        width: 100%;
+    }
+
+    #events .card-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+    }
+
+    #events .card-text {
+        font-size: 0.95rem;
+    }
+
+    #events .btn-primary {
+        padding: 12px 24px;
+        font-size: 1rem;
+        width: 100%;
+        max-width: 300px;
+        margin: 1rem auto 0 auto;
+        display: block;
+        border-radius: 30px;
+        text-align: center;
+    }
+
+    #events .text-center.mb-5 h2.section-title {
+        font-size: 1.75rem;
+    }
+
+    #events .text-center.mb-5 p.section-subtitle {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+}
+
+
+
+@media (max-width: 767.98px) {
+    #gallery .container-fluid {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    #gallery .row.g-3 {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    #gallery .col-md-3,
+    #gallery .col-6 {
+        max-width: 50% !important;
+        flex: 0 0 50% !important;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        margin-bottom: 1.25rem;
+    }
+
+    #gallery .img-fluid.rounded {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        border-radius: 12px;
+    }
+
+    #gallery h5 {
+        font-size: 1rem;
+        margin-top: 0.5rem;
+        color: #000;
+        word-break: break-word;
+        text-align: center;
+    }
+
+    #gallery .text-center.mt-4 .btn-primary {
+        width: 100%;
+        max-width: 300px;
+        padding: 12px 24px;
+        font-size: 1rem;
+        border-radius: 30px;
+        margin: 1rem auto 0 auto;
+        display: block;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    #gallery .col-md-3,
+    #gallery .col-6 {
+        max-width: 100% !important;
+        flex: 0 0 100% !important;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+}
+
+
+@media (max-width: 767.98px) {
+    .cta-section .row {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .cta-section .col-lg-8,
+    .cta-section .col-lg-4 {
+        max-width: 100%;
+        flex: 0 0 100%;
+    }
+
+    .cta-section .col-lg-4.text-lg-end {
+        text-align: center !important;
+    }
+
+    .cta-section .btn {
+        width: 100%;
+        max-width: 280px;
+        margin: 0 auto;
+        font-size: 1.1rem;
+        padding: 14px 0;
+        border-radius: 30px;
+    }
+
+    .cta-section .btn.btn-primary {
+        margin-bottom: 10px;
+    }
+}
 
 
 </style>
