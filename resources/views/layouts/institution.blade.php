@@ -12,7 +12,7 @@
 
     <style>
         :root {
-            --primary-color: #3b5998;
+            --primary-color: #0a58ca;
             --secondary-color: #f8f9fa;
             --accent-color: #6c757d;
             --sidebar-width: 250px;

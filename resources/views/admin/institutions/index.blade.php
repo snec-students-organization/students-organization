@@ -1,4 +1,4 @@
-@extends('layouts.admin') {{-- Adjust as per your admin layout --}}
+@extends('layouts.app') {{-- Adjust as per your admin layout --}}
 
 @section('content')
 <div class="container py-4">

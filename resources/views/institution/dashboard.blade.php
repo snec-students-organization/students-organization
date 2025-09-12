@@ -232,16 +232,20 @@
                 </div>
                 <div class="card-body">
                     <div class="d-grid gap-2">
-                        <a href="{{ route('institution.students.index') }}" class="btn btn-outline-primary text-start py-3">
-                            <i class="bi bi-people me-2"></i> Manage Students
-                        </a>
-                        <a href="{{ route('payments.institution.create') }}" class="btn btn-outline-primary text-start py-3">
-                            <i class="bi bi-credit-card me-2"></i> Working Fund
-                        </a>
-                        <a href="{{ route('institution.organization.form') }}" class="btn btn-outline-primary text-start py-3">
-                            <i class="bi bi-building me-2"></i> Organization Details
-                        </a>
-                    </div>
+    <a href="{{ route('institution.students.index') }}" class="btn btn-outline-primary text-start py-3">
+        <i class="bi bi-people me-2"></i> Manage Students
+    </a>
+    <a href="{{ route('payments.institution.create') }}" class="btn btn-outline-primary text-start py-3">
+        <i class="bi bi-credit-card me-2"></i> Working Fund
+    </a>
+    <a href="{{ route('institution.organization.form') }}" class="btn btn-outline-primary text-start py-3">
+        <i class="bi bi-building me-2"></i> Organization Details
+    </a>
+    <a href="{{ route('institution-data.create') }}" class="btn btn-outline-primary text-start py-3">
+        <i class="bi bi-plus-circle me-2"></i> Add Data
+    </a>
+</div>
+
                 </div>
             </div>
         </div>
@@ -251,7 +255,7 @@
 
 <style>
     .welcome-header {
-        background: linear-gradient(135deg, #4e54c8, #8a64d0);
+        background: linear-gradient(135deg, #0a58ca, #5c7cb4ff);
     }
     
     .stats-card {
