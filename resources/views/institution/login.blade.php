@@ -119,6 +119,13 @@
         max-width: 100%;
       }
     }
+    .login-card h1 {
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
   </style>
 </head>
 <body>
@@ -127,14 +134,15 @@
     <div class="login-left">
       <!-- Replace 'institution-logo.png' with your logo -->
       <img src="/images/SSO.png" alt="Institution Logo">
-      <h1>SNEC STUDENTS' ORGANIZATION <br>(SSO) <br>College Login</h1>
+      <h1>SNEC STUDENTS' ORGANIZATION <br>(SSO) </h1>
       <p>Secure access to your organization dashboard</p>
     </div>
 
     <!-- White Login Card -->
     <div class="login-right">
       <div class="login-card">
-        <h2 class="mb-3">Sign In</h2>
+        <h1>College Login</h1>
+        
         <p>Please login with your institutional email and password</p>
 
         {{-- Flash Message --}}
