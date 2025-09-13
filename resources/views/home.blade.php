@@ -1413,10 +1413,14 @@ html, body {
 </h5>
                 <p>A comprehensive platform for managing organizations, events, and community engagement.</p>
                 <div class="d-flex gap-3">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.facebook.com/profile.php?id=61550072942049&mibextid=ZbWKwL
+"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://youtube.com/@snecstudents?si=dVkZFhICOXF8Ct-L
+"><i class="fab fa-youtube"></i></a>
+                    <a href="https://instagram.com/snecstudents?utm_source=qr&igshid=MzNlNGNkZWQ4Mg%3D%3D
+"><i class="fab fa-instagram"></i></a>
+                    <a href="https://whatsapp.com/channel/0029VazpkGv5a24D8kBK8y2Z
+"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
             <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
