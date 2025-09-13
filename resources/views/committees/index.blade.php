@@ -20,7 +20,7 @@
                     <div class="card-body text-center p-4">
                         <div class="image-container mb-4">
                             <img src="{{ $member->image ? asset('storage/'.$member->image) : asset('images/default-avatar.png') }}" 
-                                 class="img-fluid rounded-circle member-photo shadow" 
+                                 class="img-fluid rounded-box member-photo shadow" 
                                  width="140" 
                                  alt="{{ $member->name }}">
                             <div class="photo-overlay rounded-circle"></div>
@@ -76,7 +76,7 @@
                             <div class="card-body text-center p-4">
                                 <div class="image-container mb-4">
                                     <img src="{{ $member->image ? asset('storage/'.$member->image) : asset('images/default-avatar.png') }}" 
-                                         class="img-fluid rounded-circle member-photo shadow" 
+                                         class="img-fluid rounded-box member-photo shadow" 
                                          width="120" 
                                          alt="{{ $member->name }}">
                                     <div class="photo-overlay rounded-circle"></div>
@@ -111,3 +111,13 @@
     @endforelse
 </div>
 @endsection
+<style>
+    /* Rounded box photo */
+.rounded-box {
+    border-radius: 15px;   /* Adjust curve - bigger value = more rounded */
+    object-fit: cover;     /* Keeps the aspect ratio while filling */
+    width: 140px;          /* Ensures same size */
+    height: 140px;
+}
+
+</style>
