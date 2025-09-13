@@ -604,170 +604,175 @@
                 </ul>
 
                 <!-- Right Side Of Navbar -->
-                <ul class="navbar-nav ms-auto">
-                    @guest
-                        <li class="nav-item">
-                            <a class="nav-link position-relative" href="{{ route('notifications.index') }}" title="View Notifications">
-                                <i class="bi bi-bell fs-5"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a
-                                class="nav-link {{ request()->is('login') ? 'active fw-bold' : '' }}"
-                                href="{{ route('login') }}">
-                                <i class="bi bi-box-arrow-in-right me-2"></i> Login
-                            </a>
-                        </li>
-                        @if(Route::has('register'))
-                            <li class="nav-item">
-                                <a
-                                    class="nav-link {{ request()->is('register') ? 'active fw-bold' : '' }}"
-                                    href="{{ route('register') }}">
-                                    <i class="bi bi-person-plus me-2"></i> Register
-                                </a>
-                            </li>
-                        @endif
-                    @else
-                        <li class="nav-item dropdown mx-1">
-                            <a
-                                class="nav-link notification-indicator position-relative"
-                                href="#"
-                                role="button"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false"
-                                title="Notifications">
-                                <i class="bi bi-bell fs-5"></i>
-                                @if(!empty($recentNotifications) && $recentNotifications->where('read_at', null)->count() > 0)
-                                    <span class="badge bg-danger rounded-pill badge-notification">
-                                        {{ $recentNotifications->where('read_at', null)->count() }}
-                                    </span>
-                                @endif
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-notifications">
-                                <li><h6 class="dropdown-header">Notifications</h6></li>
-                                @forelse($recentNotifications ?? [] as $notification)
-                                    <li class="notification-item-wrapper @if(!$notification->read_at) unread @endif">
-                                        <div class="notification-item-content">
-                                            <div class="notification-icon">
-                                                <i class="bi
-                                                    @if(isset($notification->type) && $notification->type === 'event') bi-calendar-event
-                                                    @elseif(isset($notification->type) && $notification->type === 'alert') bi-exclamation-triangle
-                                                    @elseif(isset($notification->type) && $notification->type === 'info') bi-info-circle
-                                                    @else bi-bell
-                                                    @endif
-                                                "></i>
-                                            </div>
-                                            <div class="notification-details">
-                                                <div class="notification-text">
-                                                    <a
-                                                        href="{{ (isset($notification->event) && $notification->event->id) ? route('events.show', $notification->event->id) : route('notifications.index') }}"
-                                                        class="text-dark text-decoration-none">
-                                                        {{ Str::limit($notification->title ?? 'No title', 60) }}
-                                                    </a>
-                                                </div>
-                                                <div class="notification-meta">
-                                                    <span>{{ $notification->created_at->diffForHumans() }}</span>
-                                                    <div class="notification-actions-compact">
-                                                        @if(!$notification->read_at)
-                                                            <form action="{{ route('notifications.read', $notification) }}" method="POST">
-                                                                @csrf
-                                                                <button
-                                                                    type="submit"
-                                                                    class="btn btn-sm btn-outline-primary btn-notification-compact"
-                                                                    title="Mark as Read">
-                                                                    <i class="bi bi-check2"></i>
-                                                                </button>
-                                                            </form>
-                                                        @endif
-                                                        @if(Auth::user()->role === 'admin')
-                                                            <form action="{{ route('notifications.destroy', $notification) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this notification?');">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button
-                                                                    type="submit"
-                                                                    class="btn btn-sm btn-outline-danger btn-notification-compact"
-                                                                    title="Delete Notification">
-                                                                    <i class="bi bi-trash"></i>
-                                                                </button>
-                                                            </form>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                @empty
-                                    <li class="empty-notifications">
-                                        <i class="bi bi-bell-slash"></i>
-                                        <p class="mb-0">No notifications</p>
-                                    </li>
-                                @endforelse
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item text-center small" href="{{ route('notifications.index') }}">View all notifications</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="nav-item dropdown">
-                            <a
-                                id="navbarDropdown"
-                                class="nav-link dropdown-toggle d-flex align-items-center py-0"
-                                href="#"
-                                role="button"
-                                data-bs-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false">
-                                <div class="d-flex align-items-center">
-                                    <div class="flex-shrink-0">
-                                        <div class="user-avatar">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</div>
-                                    </div>
-                                    <div class="flex-grow-1 ms-1 d-none d-lg-block">
-                                        <div class="fw-medium">{{ Auth::user()->name }}</div>
-                                        <small class="text-muted" style="font-size: 0.75rem;">{{ ucfirst(Auth::user()->role) }}</small>
-                                    </div>
-                                </div>
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-end shadow">
-                                <div class="dropdown-header">
-                                    <div class="fw-bold">{{ Auth::user()->name }}</div>
-                                    <small class="text-muted">{{ Auth::user()->email }}</small>
-                                </div>
-                                <div class="dropdown-divider"></div>
-
-                                @if(Auth::user()->role === 'admin')
-                                    <a class="dropdown-item" href="{{ route('admin.dashboard') }}">
-                                        <i class="bi bi-speedometer2 me-2"></i> Admin Dashboard
-                                    </a>
-                                @else
-                                    <a class="dropdown-item" href="{{ route('user.dashboard') }}">
-                                        <i class="bi bi-speedometer2 me-2"></i> Dashboard
-                                    </a>
-                                @endif
-
-                                <a class="dropdown-item" href="{{ route('profile.edit') }}">
-                                    <i class="bi bi-person me-2"></i> Profile
-                                </a>
-
-                                <a class="dropdown-item" href="#">
-                                    <i class="bi bi-gear me-2"></i> Settings
-                                </a>
-
-                                <div class="dropdown-divider"></div>
-
-                                <a
-                                    class="dropdown-item text-danger"
-                                    href="{{ route('logout') }}"
-                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    <i class="bi bi-box-arrow-right me-2"></i> Logout
-                                </a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
+<ul class="navbar-nav ms-auto">
+    @guest
+        <li class="nav-item">
+            <a class="nav-link position-relative" href="{{ route('notifications.index') }}" title="View Notifications">
+                <i class="bi bi-bell fs-5"></i>
+                <!-- Show Notifications text only on mobile -->
+                <span class="d-inline d-md-none ms-1">Notifications</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a
+                class="nav-link {{ request()->is('login') ? 'active fw-bold' : '' }}"
+                href="{{ route('login') }}">
+                <i class="bi bi-box-arrow-in-right me-2"></i> Login
+            </a>
+        </li>
+        @if(Route::has('register'))
+            <li class="nav-item">
+                <a
+                    class="nav-link {{ request()->is('register') ? 'active fw-bold' : '' }}"
+                    href="{{ route('register') }}">
+                    <i class="bi bi-person-plus me-2"></i> Register
+                </a>
+            </li>
+        @endif
+    @else
+        <li class="nav-item dropdown mx-1">
+            <a
+                class="nav-link notification-indicator position-relative"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                title="Notifications">
+                <i class="bi bi-bell fs-5"></i>
+                @if(!empty($recentNotifications) && $recentNotifications->where('read_at', null)->count() > 0)
+                    <span class="badge bg-danger rounded-pill badge-notification">
+                        {{ $recentNotifications->where('read_at', null)->count() }}
+                    </span>
+                @endif
+                <!-- Show Notifications text only on mobile -->
+                <span class="d-inline d-md-none ms-1">Notifications</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-notifications">
+                <li><h6 class="dropdown-header">Notifications</h6></li>
+                @forelse($recentNotifications ?? [] as $notification)
+                    <li class="notification-item-wrapper @if(!$notification->read_at) unread @endif">
+                        <div class="notification-item-content">
+                            <div class="notification-icon">
+                                <i class="bi
+                                    @if(isset($notification->type) && $notification->type === 'event') bi-calendar-event
+                                    @elseif(isset($notification->type) && $notification->type === 'alert') bi-exclamation-triangle
+                                    @elseif(isset($notification->type) && $notification->type === 'info') bi-info-circle
+                                    @else bi-bell
+                                    @endif
+                                "></i>
                             </div>
-                        </li>
-                    @endguest
-                </ul>
+                            <div class="notification-details">
+                                <div class="notification-text">
+                                    <a
+                                        href="{{ (isset($notification->event) && $notification->event->id) ? route('events.show', $notification->event->id) : route('notifications.index') }}"
+                                        class="text-dark text-decoration-none">
+                                        {{ Str::limit($notification->title ?? 'No title', 60) }}
+                                    </a>
+                                </div>
+                                <div class="notification-meta">
+                                    <span>{{ $notification->created_at->diffForHumans() }}</span>
+                                    <div class="notification-actions-compact">
+                                        @if(!$notification->read_at)
+                                            <form action="{{ route('notifications.read', $notification) }}" method="POST">
+                                                @csrf
+                                                <button
+                                                    type="submit"
+                                                    class="btn btn-sm btn-outline-primary btn-notification-compact"
+                                                    title="Mark as Read">
+                                                    <i class="bi bi-check2"></i>
+                                                </button>
+                                            </form>
+                                        @endif
+                                        @if(Auth::user()->role === 'admin')
+                                            <form action="{{ route('notifications.destroy', $notification) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this notification?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button
+                                                    type="submit"
+                                                    class="btn btn-sm btn-outline-danger btn-notification-compact"
+                                                    title="Delete Notification">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </form>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                @empty
+                    <li class="empty-notifications">
+                        <i class="bi bi-bell-slash"></i>
+                        <p class="mb-0">No notifications</p>
+                    </li>
+                @endforelse
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item text-center small" href="{{ route('notifications.index') }}">View all notifications</a></li>
+            </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+            <a
+                id="navbarDropdown"
+                class="nav-link dropdown-toggle d-flex align-items-center py-0"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false">
+                <div class="d-flex align-items-center">
+                    <div class="flex-shrink-0">
+                        <div class="user-avatar">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</div>
+                    </div>
+                    <div class="flex-grow-1 ms-1 d-none d-lg-block">
+                        <div class="fw-medium">{{ Auth::user()->name }}</div>
+                        <small class="text-muted" style="font-size: 0.75rem;">{{ ucfirst(Auth::user()->role) }}</small>
+                    </div>
+                </div>
+            </a>
+
+            <div class="dropdown-menu dropdown-menu-end shadow">
+                <div class="dropdown-header">
+                    <div class="fw-bold">{{ Auth::user()->name }}</div>
+                    <small class="text-muted">{{ Auth::user()->email }}</small>
+                </div>
+                <div class="dropdown-divider"></div>
+
+                @if(Auth::user()->role === 'admin')
+                    <a class="dropdown-item" href="{{ route('admin.dashboard') }}">
+                        <i class="bi bi-speedometer2 me-2"></i> Admin Dashboard
+                    </a>
+                @else
+                    <a class="dropdown-item" href="{{ route('user.dashboard') }}">
+                        <i class="bi bi-speedometer2 me-2"></i> Dashboard
+                    </a>
+                @endif
+
+                <a class="dropdown-item" href="{{ route('profile.edit') }}">
+                    <i class="bi bi-person me-2"></i> Profile
+                </a>
+
+                <a class="dropdown-item" href="#">
+                    <i class="bi bi-gear me-2"></i> Settings
+                </a>
+
+                <div class="dropdown-divider"></div>
+
+                <a
+                    class="dropdown-item text-danger"
+                    href="{{ route('logout') }}"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <i class="bi bi-box-arrow-right me-2"></i> Logout
+                </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
+            </div>
+        </li>
+    @endguest
+</ul>
+
             </div>
         </div>
     </nav>
