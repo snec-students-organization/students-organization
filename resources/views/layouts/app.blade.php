@@ -451,6 +451,7 @@
 
 
     </style>
+    @stack('styles')
 
     @yield('styles')
 </head>
