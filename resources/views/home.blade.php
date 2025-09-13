@@ -854,32 +854,32 @@ html, body {
     .cta-section .row {
         flex-direction: column;
         text-align: center;
-        gap: 20px;
+        gap: 1.25rem;
     }
 
     .cta-section .col-lg-8,
     .cta-section .col-lg-4 {
-        max-width: 100%;
         flex: 0 0 100%;
+        max-width: 100%;
     }
 
-    .cta-section .col-lg-4.text-lg-end {
+    .cta-section .col-lg-4 {
         text-align: center !important;
     }
 
-    .cta-section .btn {
-        width: 100%;
-        max-width: 280px;
-        margin: 0 auto;
-        font-size: 1.1rem;
-        padding: 14px 0;
+    /* ✅ Buttons side by side */
+    .cta-section .col-lg-4 .btn {
+        display: inline-block;
+        width: auto;
+        min-width: 140px; /* keeps good size */
+        margin: 5px;
+        font-size: 1rem;
+        padding: 12px 24px;
         border-radius: 30px;
     }
-
-    .cta-section .btn.btn-primary {
-        margin-bottom: 10px;
-    }
 }
+
+
 
 
 </style>
