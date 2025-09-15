@@ -17,6 +17,7 @@
                             <th>Address</th>
                             <th>Organization (Full/Short)</th>
                             <th>Membership Number</th>
+                            <th>Email</th> <!-- ✅ Added -->
                             <th>Director (Name/Contact)</th>
                             <th>Chairman (Name/Contact)</th>
                             <th>Convener (Name/Contact)</th>
@@ -35,6 +36,7 @@
                                 <td>{{ $inst->full_address }}</td>
                                 <td>{{ $inst->college_organization_full_name }} / {{ $inst->college_organization_short_name }}</td>
                                 <td>{{ $inst->membership_number }}</td>
+                                <td>{{ $inst->email }}</td> <!-- ✅ Display email -->
                                 <td>{{ $inst->organization_director_name }} / {{ $inst->organization_director_contact }}</td>
                                 <td>{{ $inst->chairman_name }} / {{ $inst->chairman_contact }}</td>
                                 <td>{{ $inst->convener_name }} / {{ $inst->convener_contact }}</td>
@@ -44,7 +46,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="13" class="text-center text-muted py-3">
+                                <td colspan="14" class="text-center text-muted py-3">
                                     No submitted institution data found.
                                 </td>
                             </tr>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\Payment;
 use App\Models\Institution;
+use App\Models\InstitutionData;
 
 class InstitutionDashboardController extends Controller
 {
@@ -15,29 +16,34 @@ class InstitutionDashboardController extends Controller
         $this->middleware('auth:institution');
     }
 
+    // Dashboard
     public function index()
     {
-        // Always reload fresh institution data
         $institution = auth()->guard('institution')->user()->fresh();
 
         $organization = $institution->organization; // Assuming relationship exists
         $students_count = $institution->students()->count();
         $recent_students = $institution->students()->latest()->take(5)->get();
 
-        // Use created_at to get the latest payment since paid_at doesn't exist
+        // Latest payment
         $last_payment = Payment::where('institution_name', $institution->name)
             ->latest('created_at')
             ->first();
+
+        // Latest submitted institution data
+        $selectedData = InstitutionData::where('institution_id', $institution->id)->latest()->first();
 
         return view('institution.dashboard', compact(
             'institution',
             'organization',
             'students_count',
             'recent_students',
-            'last_payment'
+            'last_payment',
+            'selectedData'
         ));
     }
 
+    // Students listing
     public function studentsIndex()
     {
         $institution = auth()->guard('institution')->user()->fresh();
@@ -46,11 +52,13 @@ class InstitutionDashboardController extends Controller
         return view('institution.students.index', compact('students'));
     }
 
+    // Show add student form
     public function studentsCreate()
     {
         return view('institution.students.create');
     }
 
+    // Store new student
     public function studentsStore(Request $request)
     {
         $request->validate([
@@ -70,75 +78,5 @@ class InstitutionDashboardController extends Controller
 
         return redirect()->route('institution.students.index')
             ->with('success', 'Student added and pending admin verification.');
-    }
-
-    // Show edit form
-    public function editDetails()
-    {
-        $institution = auth()->guard('institution')->user()->fresh();
-        return view('institution.edit_details', compact('institution'));
-    }
-
-    // Handle update
-    public function updateDetails(Request $request)
-    {
-        $institution = auth()->guard('institution')->user()->fresh();
-
-        $validated = $request->validate([
-            'full_name' => 'required|string|max:255',
-            'short_name' => 'nullable|string|max:100',
-            'stream' => 'nullable|string|max:255',
-            'affiliation_number' => 'nullable|string|max:100',
-            'place' => 'nullable|string|max:255',
-            'address' => 'nullable|string',
-            'organization_name' => 'nullable|string|max:255',
-            'organization_short_name' => 'nullable|string|max:100',
-        ]);
-
-        $institution->update($validated);
-
-        return redirect()->route('institution.dashboard')
-            ->with('success', 'Institution details updated successfully.');
-    }
-
-    // Show add details form
-    public function addDetails()
-    {
-        $institution = auth()->guard('institution')->user()->fresh();
-
-        // If details already exist, redirect to edit to avoid duplicates
-        if ($institution->full_name) {
-            return redirect()->route('institution.details.edit');
-        }
-
-        return view('institution.add_details', compact('institution'));
-    }
-
-    // Handle adding details form submission
-    public function storeDetails(Request $request)
-    {
-        $institution = auth()->guard('institution')->user()->fresh();
-
-        $validated = $request->validate([
-            'full_name' => 'required|string|max:255',
-            'short_name' => 'nullable|string|max:100',
-            'stream' => 'nullable|string|max:255',
-            'affiliation_number' => 'nullable|string|max:100',
-            'place' => 'nullable|string|max:255',
-            'address' => 'nullable|string',
-            'organization_name' => 'nullable|string|max:255',
-            'organization_short_name' => 'nullable|string|max:100',
-        ]);
-
-        // Prevent duplicate if details exist
-        if ($institution->full_name) {
-            return redirect()->route('institution.details.edit')
-                ->with('error', 'Details already added.');
-        }
-
-        $institution->update($validated); // Save details on same record
-
-        return redirect()->route('institution.dashboard')
-            ->with('success', 'Institution details added successfully.');
     }
 }

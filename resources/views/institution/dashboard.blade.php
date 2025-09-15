@@ -31,6 +31,43 @@
         @endif
     @endforeach
 
+    {{-- Selected Institution Data --}}
+    @if(isset($selectedData))
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-primary text-white py-2">
+            <h5 class="mb-0"><i class="bi bi-file-earmark-text me-2"></i> Submitted Institution Data</h5>
+        </div>
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label text-muted small mb-1">College Name</label>
+                    <p class="mb-0 fw-medium">{{ $selectedData->college_name }}</p>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label text-muted small mb-1">Stream</label>
+                    <p class="mb-0 fw-medium">{{ $selectedData->stream }}</p>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label text-muted small mb-1">Affiliation Number</label>
+                    <p class="mb-0 fw-medium">{{ $selectedData->affiliation_number }}</p>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label text-muted small mb-1">Address</label>
+                    <p class="mb-0 fw-medium">{{ $selectedData->full_address }}</p>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label text-muted small mb-1">Organization Name</label>
+                    <p class="mb-0 fw-medium">{{ $selectedData->college_organization_full_name }}</p>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label text-muted small mb-1">Email</label>
+                    <p class="mb-0 fw-medium">{{ $selectedData->email }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+
     {{-- Stats Overview --}}
     <div class="row g-3 mb-4">
         <div class="col-md-4">
@@ -88,66 +125,6 @@
     <div class="row g-4">
         {{-- Left Column --}}
         <div class="col-lg-8">
-            {{-- Institution Details Card --}}
-            @if(!$institution->full_name)
-                <div class="card border-warning shadow-sm mb-4">
-                    <div class="card-header bg-warning bg-opacity-10 d-flex justify-content-between align-items-center py-3">
-                        <h5 class="mb-0 text-warning"><i class="bi bi-exclamation-circle me-2"></i>Action Required</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <p class="mb-0">Institution details have not been submitted yet.</p>
-                            <a href="{{ route('institution.details.add') }}" class="btn btn-primary">Add Now</a>
-                        </div>
-                    </div>
-                </div>
-            @else
-                <div class="card shadow-sm mb-4">
-                    <div class="card-header bg-light d-flex justify-content-between align-items-center py-3">
-                        <h5 class="mb-0"><i class="bi bi-building me-2"></i> Institution Details</h5>
-                        <a href="{{ route('institution.details.edit') }}" class="btn btn-sm btn-outline-primary">
-                            <i class="bi bi-pencil me-1"></i> Edit
-                        </a>
-                    </div>
-                    <div class="card-body">
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label text-muted small mb-1">Full Name</label>
-                                <p class="mb-0 fw-medium">{{ $institution->full_name }}</p>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label text-muted small mb-1">Short Name</label>
-                                <p class="mb-0 fw-medium">{{ $institution->short_name }}</p>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label text-muted small mb-1">Stream</label>
-                                <p class="mb-0 fw-medium">{{ $institution->stream }}</p>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label text-muted small mb-1">Affiliation No</label>
-                                <p class="mb-0 fw-medium">{{ $institution->affiliation_number }}</p>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label text-muted small mb-1">Place</label>
-                                <p class="mb-0 fw-medium">{{ $institution->place }}</p>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label text-muted small mb-1">Address</label>
-                                <p class="mb-0 fw-medium">{{ $institution->address }}</p>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label text-muted small mb-1">Organization Name</label>
-                                <p class="mb-0 fw-medium">{{ $institution->organization_name }}</p>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label text-muted small mb-1">Org Short Name</label>
-                                <p class="mb-0 fw-medium">{{ $institution->organization_short_name }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endif
-
             {{-- Recent Students --}}
             <div class="card shadow-sm">
                 <div class="card-header bg-light py-3">
@@ -232,26 +209,27 @@
                 </div>
                 <div class="card-body">
                     <div class="d-grid gap-2">
-    <a href="{{ route('institution.students.index') }}" class="btn btn-outline-primary text-start py-3">
-        <i class="bi bi-people me-2"></i> Manage Students
-    </a>
-    <a href="{{ route('payments.institution.create') }}" class="btn btn-outline-primary text-start py-3">
-        <i class="bi bi-credit-card me-2"></i> Working Fund
-    </a>
-    <a href="{{ route('institution.organization.form') }}" class="btn btn-outline-primary text-start py-3">
-        <i class="bi bi-building me-2"></i> Organization Details
-    </a>
-    <a href="{{ route('institution-data.create') }}" class="btn btn-outline-primary text-start py-3">
-        <i class="bi bi-plus-circle me-2"></i> Add Data
-    </a>
-</div>
-
+                        <a href="{{ route('institution.students.index') }}" class="btn btn-outline-primary text-start py-3">
+                            <i class="bi bi-people me-2"></i> Manage Students
+                        </a>
+                        <a href="{{ route('payments.institution.create') }}" class="btn btn-outline-primary text-start py-3">
+                            <i class="bi bi-credit-card me-2"></i> Working Fund
+                        </a>
+                        <a href="{{ route('institution.organization.form') }}" class="btn btn-outline-primary text-start py-3">
+                            <i class="bi bi-building me-2"></i> Organization Details
+                        </a>
+                        <a href="{{ route('institution-data.create') }}" class="btn btn-outline-primary text-start py-3">
+                            <i class="bi bi-plus-circle me-2"></i> Add Data
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
 </div>
+
+
 
 <style>
     .welcome-header {
