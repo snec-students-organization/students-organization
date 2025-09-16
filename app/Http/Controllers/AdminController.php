@@ -5,58 +5,84 @@ namespace App\Http\Controllers;
 use App\Models\Organization;
 use App\Models\Event;
 use App\Models\User;
-use App\Models\ActivityLog; // optional if you have activity logs
-use Illuminate\Http\Request;
+use App\Models\ActivityLog; 
+use App\Models\Institution;
 use App\Models\Student;
+use Illuminate\Http\Request;
+
 class AdminController extends Controller
 {   
+    /**
+     * Admin Dashboard
+     */
     public function dashboard()
+    {
+        $orgCount   = Organization::count();
+        $eventCount = Event::count();
+        $userCount  = User::count();
+        $studentCount = Student::count();
+
+        $upcomingEvents = Event::where('start', '>=', now())
+                               ->orderBy('start', 'asc')
+                               ->take(5)
+                               ->get();
+
+        $activities = ActivityLog::latest()->take(10)->get();
+
+        $quickLinks = [
+            'new_event'        => route('admin.events.create'),
+            'add_organization' => route('admin.organizations.create'),
+            'manage_users'     => route('admin.users.index'),
+            'manage_students'  => route('admin.students.index'),
+        ];
+
+        return view('admin.dashboard', compact(
+            'orgCount',
+            'eventCount',
+            'userCount',
+            'studentCount',
+            'upcomingEvents',
+            'activities',
+            'quickLinks'
+        ));
+    }
+
+    /**
+     * Show all students grouped by institution
+     */
+    public function studentsIndex()
+    {
+        $institutions = Institution::with('students')->get();
+        return view('admin.students.index', compact('institutions'));
+    }
+
+    /**
+     * Update student status (pending/verified/working_fund)
+     */
+    public function updateStudentStatus(Request $request, Student $student)
+    {
+        $request->validate([
+            'status' => 'required|in:pending,verified,working_fund',
+        ]);
+
+        $student->update([
+            'status' => $request->status,
+        ]);
+
+        return back()->with('success', 'Student status updated.');
+    }
+    public function studentsByInstitution(Request $request)
 {
-    $orgCount   = Organization::count();
-    $eventCount = Event::count();
-    $userCount  = User::count();
+    $query = Institution::with('students');
 
-    $upcomingEvents = Event::where('start', '>=', now())
-                           ->orderBy('start', 'asc')
-                           ->take(5)
-                           ->get();
+    if ($request->filled('search')) {
+        $query->where('name', 'like', '%' . $request->search . '%');
+    }
 
-    $activities = ActivityLog::latest()->take(10)->get();
+    $institutions = $query->get();
 
-    $quickLinks = [
-        'new_event' => route('admin.events.create'),
-        'add_organization' => route('admin.organizations.create'),
-        'add_user' => route('admin.users.index'),
-        'generate_report' => route('admin.dashboard') // placeholder
-    ];
-
-    return view('admin.dashboard', compact(
-        'orgCount',
-        'eventCount',
-        'userCount',
-        'upcomingEvents',
-        'activities',
-        'quickLinks'
-    ));
-}
-public function studentsIndex()
-{
-    $institutions = \App\Models\Institution::with('students')->orderBy('name')->get();
     return view('admin.students.index', compact('institutions'));
 }
 
-
-public function updateStudentStatus(Request $request, Student $student)
-{
-    $request->validate([
-        'status' => 'required|in:pending,verified,working_fund',
-    ]);
-
-    $student->update([
-        'status' => $request->status,
-    ]);
-
-    return back()->with('success', 'Student status updated.');
 }
 
-}

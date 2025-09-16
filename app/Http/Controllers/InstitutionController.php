@@ -7,36 +7,38 @@ use Illuminate\Http\Request;
 
 class InstitutionController extends Controller
 {
-    // Show list of students for the logged-in institution
     public function studentsIndex()
     {
-        $institution = auth()->user(); // Assuming institution user is logged in
+        $institution = auth()->user();
         $students = $institution->students()->paginate(10);
+
         return view('institution.students.index', compact('students'));
     }
 
-    // Show form to add a new student
     public function studentsCreate()
     {
         return view('institution.students.create');
     }
 
-    // Store new student submitted from the form
     public function studentsStore(Request $request)
     {
         $request->validate([
-            'name'  => 'required|string|max:255',
-            'uid'   => 'required|string|unique:students,uid',
-            'class' => 'required|string|max:100',
+            'name'   => 'required|string|max:255',
+            'uid'    => 'required|string|unique:students,uid',
+            'class'  => 'required|string|max:100',
+            'stream' => 'required|string|in:sharea,sharea plus,she,she plus,life,life plus,bayyinath',
         ]);
 
         auth()->user()->students()->create([
             'name'   => $request->name,
             'uid'    => $request->uid,
             'class'  => $request->class,
-            'status' => 'pending', // New students start with pending status
+            'stream' => $request->stream,
+            'status' => 'pending',
         ]);
 
-        return redirect()->route('institution.students.index')->with('success', 'Student added and pending admin verification.');
+        return redirect()
+            ->route('institution.students.index')
+            ->with('success', 'Student added successfully. Waiting for user to complete details.');
     }
 }

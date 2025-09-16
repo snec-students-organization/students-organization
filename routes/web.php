@@ -144,7 +144,8 @@ Route::middleware(['auth', 'admin'])
 
         // Admin Student verification
         Route::get('students', [AdminController::class, 'studentsIndex'])->name('students.index');
-        Route::patch('students/{student}/status', [AdminController::class, 'updateStudentStatus'])->name('students.update_status');
+      
+
 
         // Admin Payments view
         Route::get('/payments', [PaymentController::class, 'adminIndex'])->name('payments.index');
@@ -197,7 +198,38 @@ Route::middleware('auth:institution')->group(function () {
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     
     Route::get('/data-collection/institutions', [DataCollectionController::class, 'institutionDataIndex'])->name('data.collection.institutions');
+    
 });
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/user/dashboard', [UserController::class, 'dashboard'])->name('user.dashboard');
+    Route::get('/user/submit-data', [UserController::class, 'submitDataForm'])->name('user.submit.form');
+    Route::post('/user/submit-data', [UserController::class, 'submitData'])->name('user.submit.store');
+});
+Route::middleware('auth')->group(function () {
+    // Edit student details
+    Route::get('/user/details/edit', [UserController::class, 'editDetails'])->name('user.student.edit');
 
+    // Update student details
+    Route::put('/user/details/update', [UserController::class, 'updateDetails'])->name('user.student.update');
+});
 
+// routes/web.php
+Route::middleware('auth')->group(function () {
+    Route::get('/user/details/edit', [UserController::class, 'editDetails'])
+        ->name('user.student.edit');
+
+    Route::put('/user/details/update', [UserController::class, 'updateDetails'])
+        ->name('user.student.update');
+});
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::patch('students/{student}/status', [App\Http\Controllers\AdminController::class, 'updateStudentStatus'])
+        ->name('student.updateStatus');
+
+        
+});
+
+Route::get('admin/students-by-institution', [AdminController::class, 'studentsByInstitution'])
+    ->name('admin.students.byInstitution')
+    ->middleware(['auth', 'admin']);

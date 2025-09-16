@@ -188,16 +188,8 @@
                                 <i class="bi bi-building-add d-block fs-2 mb-2"></i>Add Organization
                             </a>
                         </div>
-                        <div class="col-6">
-                            <a href="{{ $quickLinks['add_user'] }}" class="btn btn-outline-info w-100 quick-action-btn py-3">
-                                <i class="bi bi-person-plus d-block fs-2 mb-2"></i>Add User
-                            </a>
-                        </div>
-                        <div class="col-6">
-                            <a href="{{ $quickLinks['generate_report'] }}" class="btn btn-outline-warning w-100 quick-action-btn py-3">
-                                <i class="bi bi-file-earmark-text d-block fs-2 mb-2"></i>Generate Report
-                            </a>
-                        </div>
+                        
+                        
                     </div>
                 </div>
             </div>
