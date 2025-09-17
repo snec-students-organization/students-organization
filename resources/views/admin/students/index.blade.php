@@ -24,7 +24,7 @@
         </a>
     </div>
 
-    {{-- Success Message --}}
+    {{-- ✅ Success Message --}}
     @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
@@ -49,56 +49,62 @@
                         </a>
                     </div>
 
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-hover align-middle">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>Name</th>
-                                    <th>UID</th>
-                                    <th>Class</th>
-                                    <th>Stream</th>
-                                    <th>Father</th>
-                                    <th>Address</th>
-                                    <th>Contact</th>
-                                    <th>Status</th>
-                                    <th>Update</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($institution->students as $student)
+                    @php
+                        // Group students by class
+                        $studentsByClass = $institution->students->groupBy('class');
+                    @endphp
+
+                    @foreach($studentsByClass as $className => $students)
+                        <h5 class="mt-4 mb-3 text-primary">📌 Class: {{ $className }}</h5>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover align-middle">
+                                <thead class="table-light">
                                     <tr>
-                                        <td>{{ $student->name }}</td>
-                                        <td>{{ $student->uid }}</td>
-                                        <td>{{ $student->class }}</td>
-                                        <td>{{ $student->stream ?? '—' }}</td>
-                                        <td>{{ $student->father_name ?? '—' }}</td>
-                                        <td>{{ $student->address ?? '—' }}</td>
-                                        <td>{{ $student->contact_number ?? '—' }}</td>
-                                        <td>
-                                            <span class="badge 
-                                                @if($student->status == 'pending') bg-warning text-dark
-                                                @elseif($student->status == 'verified') bg-success
-                                                @else bg-info text-dark @endif">
-                                                {{ ucfirst($student->status) }}
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <form action="{{ route('admin.student.updateStatus', $student->id) }}" method="POST" class="d-flex gap-2">
-                                                @csrf
-                                                @method('PATCH')
-                                                <select name="status" class="form-select form-select-sm w-auto">
-                                                    <option value="pending" {{ $student->status == 'pending' ? 'selected' : '' }}>Pending</option>
-                                                    <option value="verified" {{ $student->status == 'verified' ? 'selected' : '' }}>Verified</option>
-                                                    <option value="working_fund" {{ $student->status == 'working_fund' ? 'selected' : '' }}>Working Fund</option>
-                                                </select>
-                                                <button type="submit" class="btn btn-sm btn-primary">✔</button>
-                                            </form>
-                                        </td>
+                                        <th>Name</th>
+                                        <th>UID</th>
+                                        <th>Stream</th>
+                                        <th>Father</th>
+                                        <th>Address</th>
+                                        <th>Contact</th>
+                                        <th>Status</th>
+                                        <th>Update</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                                </thead>
+                                <tbody>
+                                    @foreach($students as $student)
+                                        <tr>
+                                            <td>{{ $student->name }}</td>
+                                            <td>{{ $student->uid }}</td>
+                                            <td>{{ $student->stream ?? '—' }}</td>
+                                            <td>{{ $student->father_name ?? '—' }}</td>
+                                            <td>{{ $student->address ?? '—' }}</td>
+                                            <td>{{ $student->contact_number ?? '—' }}</td>
+                                            <td>
+                                                <span class="badge 
+                                                    @if($student->status == 'pending') bg-warning text-dark
+                                                    @elseif($student->status == 'verified') bg-success
+                                                    @else bg-info text-dark @endif">
+                                                    {{ ucfirst($student->status) }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <form action="{{ route('admin.student.updateStatus', $student->id) }}" method="POST" class="d-flex gap-2">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <select name="status" class="form-select form-select-sm w-auto">
+                                                        <option value="pending" {{ $student->status == 'pending' ? 'selected' : '' }}>Pending</option>
+                                                        <option value="verified" {{ $student->status == 'verified' ? 'selected' : '' }}>Verified</option>
+                                                        <option value="working_fund" {{ $student->status == 'working_fund' ? 'selected' : '' }}>Working Fund</option>
+                                                    </select>
+                                                    <button type="submit" class="btn btn-sm btn-primary">✔</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    @endforeach
                 @endif
             </div>
         </div>
