@@ -180,11 +180,12 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/institutions', [AdminInstitutionController::class, 'index'])->name('institutions.index');
     Route::get('/institutions/{institution}', [AdminInstitutionController::class, 'show'])->name('institutions.show');
 
-    // in routes/web.php under admin group
-Route::get('feature-flags/data-collection', [FeatureFlagController::class, 'edit'])->name('feature_flags.edit');
-Route::post('feature-flags/data-collection', [FeatureFlagController::class, 'update'])->name('feature_flags.update');
+   
 });
-
+Route::prefix('admin')->middleware(['auth'])->group(function () {
+    Route::get('feature-flags', [FeatureFlagController::class, 'index'])->name('admin.feature_flags.index');
+    Route::patch('feature-flags/{flag}', [FeatureFlagController::class, 'update'])->name('admin.feature_flags.update');
+});
 
 
 

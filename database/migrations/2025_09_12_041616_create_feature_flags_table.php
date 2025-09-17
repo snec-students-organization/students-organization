@@ -1,11 +1,9 @@
-// database/migrations/2025_09_12_000001_create_feature_flags_table.php
-
 <?php
-
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateFeatureFlagsTable extends Migration
 {
@@ -18,12 +16,20 @@ class CreateFeatureFlagsTable extends Migration
             $table->timestamps();
         });
 
-        // Seed initial flag for data collection
+        // Seed initial flags
         DB::table('feature_flags')->insert([
-            'feature_name' => 'data_collection',
-            'is_active' => false,
-            'created_at' => now(),
-            'updated_at' => now()
+            [
+                'feature_name' => 'data_collection',
+                'is_active'   => false,
+                'created_at'  => now(),
+                'updated_at'  => now(),
+            ],
+            [
+                'feature_name' => 'student_data',
+                'is_active'   => true,
+                'created_at'  => now(),
+                'updated_at'  => now(),
+            ],
         ]);
     }
 

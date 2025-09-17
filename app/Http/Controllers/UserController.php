@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\UpcomingEvent;
+use App\Models\FeatureFlag;
 
 class UserController extends Controller
 {
@@ -33,10 +34,16 @@ class UserController extends Controller
         return view('user.dashboard', compact('message', 'upcomingEvents'));
     }
 
-    // Show form to submit new student data
-     // Show form for submitting or editing student data
+    // Show form for submitting or editing student data
     public function submitDataForm()
     {
+        // Check feature flag before showing the form
+        $flag = FeatureFlag::where('feature_name', 'student_data')->first();
+        if (!$flag || !$flag->is_active) {
+            return redirect()->route('user.dashboard')
+                ->with('error', 'Student data submission is currently disabled by the admin.');
+        }
+
         $user = auth()->user();
 
         // Check if student record exists
@@ -46,10 +53,16 @@ class UserController extends Controller
         return view('user.student-details', compact('student'));
     }
 
-    // Store submitted student data
     // Store or update student data
     public function submitData(Request $request)
     {
+        // Check feature flag before processing submission
+        $flag = FeatureFlag::where('feature_name', 'student_data')->first();
+        if (!$flag || !$flag->is_active) {
+            return redirect()->route('user.dashboard')
+                ->with('error', 'Student data submission is currently disabled by the admin.');
+        }
+
         $user = auth()->user();
 
         $student = Student::where('uid', $user->uid)->first();
@@ -82,21 +95,34 @@ class UserController extends Controller
     }
 
     // Show form for editing student details
-public function editDetails()
-{
-    $user = auth()->user();
+    public function editDetails()
+    {
+        // Check feature flag before allowing edit
+        $flag = FeatureFlag::where('feature_name', 'student_data')->first();
+        if (!$flag || !$flag->is_active) {
+            return redirect()->route('user.dashboard')
+                ->with('error', 'Editing student data is currently disabled by the admin.');
+        }
 
-    // Find the student record associated with the logged-in user
-    $student = Student::where('uid', $user->uid)->firstOrFail();
+        $user = auth()->user();
 
-    // Pass it to the view
-    return view('user.student-details', compact('student'));
-}
+        // Find the student record associated with the logged-in user
+        $student = Student::where('uid', $user->uid)->firstOrFail();
 
+        // Pass it to the view
+        return view('user.student-details', compact('student'));
+    }
 
     // Update existing student details
     public function updateDetails(Request $request)
     {
+        // Check feature flag before allowing update
+        $flag = FeatureFlag::where('feature_name', 'student_data')->first();
+        if (!$flag || !$flag->is_active) {
+            return redirect()->route('user.dashboard')
+                ->with('error', 'Updating student data is currently disabled by the admin.');
+        }
+
         $user = auth()->user();
         $student = Student::where('uid', $user->uid)->firstOrFail();
 
@@ -114,6 +140,7 @@ public function editDetails()
 
         return redirect()->route('user.dashboard')->with('success', 'Details updated successfully!');
     }
+
     // Optional: Admin can list all users
     public function index()
     {
