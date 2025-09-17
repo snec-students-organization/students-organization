@@ -27,6 +27,9 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\InstitutionDataController;
 use App\Http\Controllers\Admin\FeatureFlagController;
 use App\Http\Controllers\Admin\DataCollectionController;
+use App\Http\Controllers\Admin\StudentExportController;
+
+
 // =============================
 // Public Routes
 // =============================
@@ -234,3 +237,16 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 Route::get('admin/students-by-institution', [AdminController::class, 'studentsByInstitution'])
     ->name('admin.students.byInstitution')
     ->middleware(['auth', 'admin']);
+
+Route::get('/admin/institutions/{id}/export-students', [App\Http\Controllers\Admin\StudentController::class, 'exportInstitutionStudents'])
+    ->name('admin.institutions.exportStudents');
+
+ 
+
+    Route::prefix('admin')->group(function () {
+    Route::get('/students/export/{institutionId}', [StudentExportController::class, 'exportInstitutionStudents'])
+        ->name('admin.students.exportByInstitution');
+
+    Route::get('/students/export-all', [StudentExportController::class, 'exportAllStudents'])
+        ->name('admin.students.exportAll');
+});

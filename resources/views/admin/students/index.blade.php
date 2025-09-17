@@ -6,17 +6,23 @@
 
     {{-- 🔍 Search Bar --}}
     <div class="mb-4">
-    <form method="GET" action="{{ route('admin.students.byInstitution') }}" class="d-flex gap-2">
-        <input type="text" name="search" class="form-control"
-               placeholder="🔍 Search by college name"
-               value="{{ request('search') }}">
-        <button type="submit" class="btn btn-primary">Search</button>
-        @if(request('search'))
-            <a href="{{ route('admin.students.byInstitution') }}" class="btn btn-secondary">Reset</a>
-        @endif
-    </form>
-</div>
+        <form method="GET" action="{{ route('admin.students.byInstitution') }}" class="d-flex gap-2">
+            <input type="text" name="search" class="form-control"
+                   placeholder="🔍 Search by college name"
+                   value="{{ request('search') }}">
+            <button type="submit" class="btn btn-primary">Search</button>
+            @if(request('search'))
+                <a href="{{ route('admin.students.byInstitution') }}" class="btn btn-secondary">Reset</a>
+            @endif
+        </form>
+    </div>
 
+    {{-- 📥 Export All Students --}}
+    <div class="mb-4 d-flex justify-content-end">
+        <a href="{{ route('admin.students.exportAll') }}" class="btn btn-success">
+            📥 Export All Students
+        </a>
+    </div>
 
     {{-- Success Message --}}
     @if(session('success'))
@@ -36,6 +42,13 @@
                 @if($institution->students->isEmpty())
                     <p class="text-muted">No students added yet.</p>
                 @else
+                    {{-- 📥 Export This College --}}
+                    <div class="mb-3 d-flex justify-content-end">
+                        <a href="{{ route('admin.students.exportByInstitution', $institution->id) }}" class="btn btn-outline-success btn-sm">
+                            📥 Export {{ $institution->name }} Students
+                        </a>
+                    </div>
+
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover align-middle">
                             <thead class="table-light">
