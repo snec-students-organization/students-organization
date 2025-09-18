@@ -48,8 +48,8 @@
 
         <div class="mb-3">
             <label for="membership_number" class="form-label">Membership Number</label>
-            <input type="text" name="membership_number" id="membership_number" class="form-control"
-                value="{{ old('membership_number', $institutionData->membership_number ?? '') }}" required>
+            <input type="text" id="membership_number" class="form-control" 
+                value="{{ $institution->membership_number }}" readonly>
         </div>
 
         <div class="mb-3">
@@ -115,4 +115,3 @@
     </form>
 </div>
 @endsection
-

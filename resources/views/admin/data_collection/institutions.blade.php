@@ -17,7 +17,7 @@
                             <th>Address</th>
                             <th>Organization (Full/Short)</th>
                             <th>Membership Number</th>
-                            <th>Email</th> <!-- ✅ Added -->
+                            <th>Email</th>
                             <th>Director (Name/Contact)</th>
                             <th>Chairman (Name/Contact)</th>
                             <th>Convener (Name/Contact)</th>
@@ -35,14 +35,14 @@
                                 <td>{{ $inst->affiliation_number }}</td>
                                 <td>{{ $inst->full_address }}</td>
                                 <td>{{ $inst->college_organization_full_name }} / {{ $inst->college_organization_short_name }}</td>
-                                <td>{{ $inst->membership_number }}</td>
-                                <td>{{ $inst->email }}</td> <!-- ✅ Display email -->
+                                <td>{{ $inst->institution->membership_number ?? '-' }}</td> <!-- ✅ Fixed -->
+                                <td>{{ $inst->email ?? '-' }}</td>
                                 <td>{{ $inst->organization_director_name }} / {{ $inst->organization_director_contact }}</td>
                                 <td>{{ $inst->chairman_name }} / {{ $inst->chairman_contact }}</td>
                                 <td>{{ $inst->convener_name }} / {{ $inst->convener_contact }}</td>
                                 <td>{{ $inst->treasurer_name }} / {{ $inst->treasurer_contact }}</td>
                                 <td>{{ $inst->councilers_name_contact }}</td>
-                                <td>{{ $inst->created_at->format('Y-m-d H:i') }}</td>
+                                <td>{{ optional($inst->created_at)->format('Y-m-d H:i') }}</td>
                             </tr>
                         @empty
                             <tr>

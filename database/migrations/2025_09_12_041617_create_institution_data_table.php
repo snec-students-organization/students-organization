@@ -18,7 +18,9 @@ class CreateInstitutionDataTable extends Migration
             $table->text('full_address');
             $table->string('college_organization_full_name');
             $table->string('college_organization_short_name');
-            $table->string('membership_number');
+            $table->string('membership_number')->nullable();
+            $table->string('email')->nullable();
+
             $table->string('organization_director_name');
             $table->string('organization_director_contact');
             $table->string('chairman_name');
