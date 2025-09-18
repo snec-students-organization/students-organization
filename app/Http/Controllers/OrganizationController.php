@@ -127,4 +127,18 @@ class OrganizationController extends Controller
 
         return redirect()->route('organizations.index')->with('success', 'Organization deleted successfully.');
     }
+    public function verify(Request $request, Organization $organization)
+{
+    $request->validate([
+        'status' => 'required|in:pending,verified',
+    ]);
+
+    $organization->status = $request->status;
+    $organization->save();
+
+    $this->logActivity("Changed status of organization {$organization->organization_name} to {$organization->status}");
+
+    return redirect()->back()->with('success', 'Organization status updated successfully.');
+}
+
 }

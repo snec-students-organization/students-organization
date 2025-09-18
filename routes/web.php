@@ -118,6 +118,9 @@ Route::middleware(['auth', 'admin'])
 
         // Organizations (CRUD except index, which is public)
         Route::resource('organizations', OrganizationController::class)->except(['index']);
+        // Verification route
+    Route::put('organizations/{organization}/verify', [OrganizationController::class, 'verify'])
+        ->name('organizations.verify');
 
         // Events (admin full control)
         Route::get('/events', [EventController::class, 'adminIndex'])->name('events.index');
@@ -138,6 +141,9 @@ Route::middleware(['auth', 'admin'])
         Route::resource('gallery-events.images', EventImageController::class);
         // Mark/Unmark gallery event image
         Route::post('gallery-events/{event}/images/{image}/mark', [EventImageController::class, 'toggleMark'])->name('gallery-events.images.mark');
+        
+       
+
 
         // Upcoming Events
         Route::resource('upcoming-events', UpcomingEventController::class);

@@ -168,39 +168,29 @@
         {{-- Right Column --}}
         <div class="col-lg-4">
             {{-- Organization Info --}}
-            @if(isset($organization))
-                <div class="card shadow-sm mb-4">
-                    <div class="card-header bg-light py-3">
-                        <h5 class="mb-0"><i class="bi bi-diagram-3 me-2"></i> Organization Info</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <label class="form-label text-muted small mb-1">Name</label>
-                            <p class="mb-0 fw-medium">{{ $organization->name }}</p>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label text-muted small mb-1">Status</label>
-                            <p class="mb-0">
-                                <span class="badge {{ $organization->is_approved ? 'bg-success' : 'bg-warning text-dark' }}">
-                                    {{ $organization->is_approved ? 'Approved' : 'Pending Review' }}
-                                </span>
-                            </p>
-                        </div>
-                        <a href="{{ route('institution.organization.form') }}" class="btn btn-outline-primary w-100">
-                            <i class="bi bi-pencil me-1"></i> Edit Organization
-                        </a>
-                    </div>
-                </div>
-            @else
-                <div class="card shadow-sm mb-4">
-                    <div class="card-body text-center py-4">
-                        <i class="bi bi-building display-4 text-light mb-3"></i>
-                        <h5>No Organization Added</h5>
-                        <p class="text-muted">Add your organization details to get started</p>
-                        <a href="{{ route('institution.organization.form') }}" class="btn btn-primary">Add Organization</a>
-                    </div>
-                </div>
-            @endif
+@if(isset($organization))
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-light py-3 d-flex justify-content-between align-items-center">
+            <h5 class="mb-0"><i class="bi bi-diagram-3 me-2"></i> Organization Info</h5>
+            <span class="badge 
+                {{ $organization->status === 'verified' ? 'bg-success' : 'bg-warning text-dark' }}">
+                {{ ucfirst($organization->status) }}
+            </span>
+        </div>
+        <div class="card-body">
+            <p class="fw-bold mb-0">{{ $organization->organization_name ?? '—' }}</p>
+        </div>
+    </div>
+@else
+    <div class="card shadow-sm mb-4">
+        <div class="card-body text-center py-4">
+            <i class="bi bi-building display-4 text-light mb-3"></i>
+            <h5>No Organization Added</h5>
+            <a href="{{ route('institution.organization.form') }}" class="btn btn-primary">Add Organization</a>
+        </div>
+    </div>
+@endif
+
 
             {{-- Quick Actions --}}
             <div class="card shadow-sm">

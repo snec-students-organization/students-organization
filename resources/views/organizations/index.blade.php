@@ -60,25 +60,57 @@
                         @forelse($organizations as $organization)
                             <tr>
                                 <td class="fw-semibold">{{ $organization->college_name }}</td>
-                                <td>{{ $organization->organization_name }}</td>
+                                
+                                <!-- Organization Name + Verify Section -->
+                                <td>
+                                    <div class="d-flex flex-column">
+                                        <span class="fw-semibold">{{ $organization->organization_name }}</span>
+
+                                        @if(auth()->user() && auth()->user()->role === 'admin')
+                                            <div class="mt-1">
+                                                <span class="badge {{ $organization->status === 'verified' ? 'bg-success' : 'bg-warning text-dark' }}">
+                                                    {{ ucfirst($organization->status) }}
+                                                </span>
+                                            </div>
+
+                                            <form action="{{ route('admin.organizations.verify', $organization->id) }}" method="POST" class="mt-2 d-flex align-items-center gap-2">
+                                                @csrf
+                                                @method('PUT')
+                                                <select name="status" class="form-select form-select-sm w-auto">
+                                                    <option value="pending" {{ $organization->status === 'pending' ? 'selected' : '' }}>Pending</option>
+                                                    <option value="verified" {{ $organization->status === 'verified' ? 'selected' : '' }}>Verified</option>
+                                                </select>
+                                                <button type="submit" class="btn btn-sm btn-outline-success">Update</button>
+                                            </form>
+                                        @endif
+                                    </div>
+                                </td>
+
+                                <!-- Director -->
                                 <td>
                                     {{ $organization->organization_director_name }}
                                     @if(auth()->user() && auth()->user()->role === 'admin')
                                         <br><small class="text-muted">📞 {{ $organization->organization_director_number }}</small>
                                     @endif
                                 </td>
+
+                                <!-- Counciler -->
                                 <td>
                                     {{ $organization->counciler_name }}
                                     @if(auth()->user() && auth()->user()->role === 'admin')
                                         <br><small class="text-muted">📞 {{ $organization->counciler_number }}</small>
                                     @endif
                                 </td>
+
+                                <!-- Chairman -->
                                 <td>
                                     {{ $organization->chairman_name }}
                                     @if(auth()->user() && auth()->user()->role === 'admin')
                                         <br><small class="text-muted">📞 {{ $organization->chairman_number }}</small>
                                     @endif
                                 </td>
+
+                                <!-- Convenor -->
                                 <td>
                                     {{ $organization->convenor_name }}
                                     @if(auth()->user() && auth()->user()->role === 'admin')
