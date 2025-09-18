@@ -167,7 +167,7 @@
 
         {{-- Right Column --}}
         <div class="col-lg-4">
-            {{-- Organization Info --}}
+           {{-- Organization Info --}}
 @if(isset($organization))
     <div class="card shadow-sm mb-4">
         <div class="card-header bg-light py-3 d-flex justify-content-between align-items-center">
@@ -177,8 +177,28 @@
                 {{ ucfirst($organization->status) }}
             </span>
         </div>
+
         <div class="card-body">
-            <p class="fw-bold mb-0">{{ $organization->organization_name ?? '—' }}</p>
+            <p class="fw-bold mb-2">{{ $organization->organization_name ?? '—' }}</p>
+
+            {{-- ✅ Membership Card --}}
+            @if($organization->status === 'verified' && isset($institution))
+                <div class="membership-card border rounded-3 p-3 shadow-sm mt-3">
+                    <h6 class="text-primary fw-bold mb-3">Membership Card</h6>
+                    <p class="mb-1"><strong>Organization:</strong> {{ $institution->name }}</p>
+                    <p class="mb-1"><strong>Membership No:</strong> 
+                        <span class="badge bg-success">{{ $institution->membership_number }}</span>
+                    </p>
+                    <p class="mb-1"><strong>College:</strong> {{ $selectedData->college_name ?? 'N/A' }}</p>
+                    <p class="mb-1"><strong>Email:</strong> {{ $selectedData->email ?? $institution->email }}</p>
+
+                    <div class="mt-3">
+                        <a href="{{ route('membership-card.download') }}" class="btn btn-outline-success btn-sm">
+                            <i class="bi bi-download me-1"></i> Download PDF
+                        </a>
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
 @else
@@ -190,6 +210,7 @@
         </div>
     </div>
 @endif
+
 
 
             {{-- Quick Actions --}}

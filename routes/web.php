@@ -29,7 +29,7 @@ use App\Http\Controllers\Admin\FeatureFlagController;
 use App\Http\Controllers\Admin\DataCollectionController;
 use App\Http\Controllers\Admin\StudentExportController;
 
-
+use App\Http\Controllers\MembershipCardController;
 // =============================
 // Public Routes
 // =============================
@@ -256,3 +256,9 @@ Route::get('/admin/institutions/{id}/export-students', [App\Http\Controllers\Adm
     Route::get('/students/export-all', [StudentExportController::class, 'exportAllStudents'])
         ->name('admin.students.exportAll');
 });
+
+
+
+Route::get('/membership-card/download', [MembershipCardController::class, 'download'])
+     ->name('membership-card.download')
+     ->middleware('auth:institution');
