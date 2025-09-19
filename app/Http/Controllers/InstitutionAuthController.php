@@ -24,9 +24,8 @@ class InstitutionAuthController extends Controller
             return redirect()->intended('/institution/dashboard'); // Adjust redirect as needed
         }
 
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ]);
+        return back()->with('error', 'Invalid credentials.');
+
     }
 
     public function logout(Request $request)
@@ -37,6 +36,6 @@ class InstitutionAuthController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/institution/login');
+        return redirect('/');
     }
 }

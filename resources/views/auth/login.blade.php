@@ -172,6 +172,23 @@
         <h2>Welcome</h2>
         <p>New Here? <a href="/register">Create an account</a></p>
 
+        @if ($errors->any())
+    <div style="color: red; margin-bottom: 15px;">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+@if (session('error'))
+    <div style="color: red; margin-bottom: 15px;">
+        {{ session('error') }}
+    </div>
+@endif
+
+
         <form method="POST" action="{{ route('login') }}">
           @csrf
           <div class="input-group">
