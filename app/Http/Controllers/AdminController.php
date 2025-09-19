@@ -60,17 +60,26 @@ class AdminController extends Controller
      * Update student status (pending/verified/working_fund)
      */
     public function updateStudentStatus(Request $request, Student $student)
-    {
-        $request->validate([
-            'status' => 'required|in:pending,verified,working_fund',
-        ]);
+{
+    $request->validate([
+        'status' => 'required|in:pending,verified,working_fund',
+    ]);
 
-        $student->update([
-            'status' => $request->status,
-        ]);
+    // If status is being set to verified, assign membership number if not already
+    if ($request->status === 'verified' && !$student->membership_number) {
+        do {
+            $random = 'SSO' . rand(10000, 99999);
+        } while (Student::where('membership_number', $random)->exists());
 
-        return back()->with('success', 'Student status updated.');
+        $student->membership_number = $random;
     }
+
+    $student->status = $request->status;
+    $student->save();
+
+    return back()->with('success', 'Student status updated.');
+}
+
     public function studentsByInstitution(Request $request)
 {
     $query = Institution::with('students');

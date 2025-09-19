@@ -6,33 +6,34 @@ use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\UpcomingEvent;
 use App\Models\FeatureFlag;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class UserController extends Controller
 {
     // Dashboard
     public function dashboard()
-    {
-        $user = auth()->user();
-        $message = null;
+{
+    $user = auth()->user();
 
-        $upcomingEvents = UpcomingEvent::where('event_date', '>=', now())
-                          ->orderBy('event_date', 'asc')
-                          ->get();
+    $upcomingEvents = UpcomingEvent::where('event_date', '>=', now())
+        ->orderBy('event_date', 'asc')
+        ->get();
 
-        $student = Student::where('uid', $user->uid)->first();
+    $student = Student::where('uid', $user->uid)->with('institution')->first();
 
-        if ($student) {
-            if ($student->status === 'verified') {
-                $message = 'You are a member of our SSO family';
-            } else {
-                $message = 'Please pay the working fund and take the membership';
-            }
+    $message = null;
+    if ($student) {
+        if ($student->status === 'verified') {
+            $message = 'You are a member of our SSO family';
         } else {
-            $message = 'Your UID is not associated with any institution record.';
+            $message = 'Please pay the working fund and take the membership';
         }
-
-        return view('user.dashboard', compact('message', 'upcomingEvents'));
+    } else {
+        $message = 'Your UID is not associated with any institution record.';
     }
+
+    return view('user.dashboard', compact('message', 'upcomingEvents', 'student'));
+}
 
     // Show form for submitting or editing student data
     public function submitDataForm()
@@ -147,4 +148,15 @@ class UserController extends Controller
         $users = \App\Models\User::paginate(10);
         return view('admin.users.index', compact('users'));
     }
+    public function downloadMembership()
+{
+    $student = Student::where('uid', auth()->user()->uid)->with('institution')->firstOrFail();
+
+    if ($student->status !== 'verified') {
+        return back()->with('error', 'Membership not verified yet.');
+    }
+
+    $pdf = Pdf::loadView('user.membership-pdf', compact('student'));
+    return $pdf->download('membership-card.pdf');
+}
 }

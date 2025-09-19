@@ -262,3 +262,7 @@ Route::get('/admin/institutions/{id}/export-students', [App\Http\Controllers\Adm
 Route::get('/membership-card/download', [MembershipCardController::class, 'download'])
      ->name('membership-card.download')
      ->middleware('auth:institution');
+
+Route::get('/membership/download', [UserController::class, 'downloadMembership'])
+    ->name('membership.download')
+    ->middleware('auth');

@@ -4,7 +4,10 @@
 <div class="container py-4">
     <!-- Welcome Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="h3 text-primary fw-bold">Welcome, {{ auth()->user()->name }}</h1>
+        <div>
+            <h1 class="h3 text-primary fw-bold mb-1">Welcome, {{ auth()->user()->name }}</h1>
+            <p class="text-muted mb-0">Here's your membership status and upcoming events</p>
+        </div>
         <div class="badge bg-light text-dark p-2">
             <i class="fas fa-calendar-alt me-2"></i>{{ now()->format('l, F j, Y') }}
         </div>
@@ -12,84 +15,137 @@
 
     {{-- Membership Status Message --}}
     @if(isset($message))
-        <div class="alert alert-info alert-dismissible fade show" role="alert">
+        <div class="alert alert-info alert-dismissible fade show mb-4" role="alert">
             <i class="fas fa-info-circle me-2"></i>
             {{ $message }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @else
-        <div class="alert alert-secondary" role="alert">
+        <div class="alert alert-secondary mb-4" role="alert">
             <i class="fas fa-exclamation-circle me-2"></i>No membership status available.
         </div>
     @endif
 
-    {{-- Quick Links --}}
-    <div class="row g-3 mt-4 mb-5">
-        <div class="col-md-3 col-6">
-            <a href="{{ route('calendar') }}" class="card text-center shadow-sm h-100 quick-link-card">
-                <div class="card-body p-4">
-                    <div class="quick-link-icon mb-3">
-                        <i class="fas fa-calendar-day fa-2x text-primary"></i>
-                    </div>
-                    <h5 class="card-title">Events</h5>
-                    <p class="text-muted small">View upcoming events</p>
+    <div class="row">
+        {{-- Membership Card --}}
+        <div class="col-lg-4 mb-4">
+            @if($student && $student->status === 'verified')
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-header bg-white border-0 pb-0">
+                    <h5 class="card-title fw-bold">Membership Card</h5>
                 </div>
-            </a>
+                <div class="card-body text-center">
+                    <span class="badge bg-success px-3 py-2 mb-3">
+                        <i class="fas fa-check-circle me-1"></i> Verified Member
+                    </span>
+                    <h5 class="fw-bold">{{ $student->name }}</h5>
+                    <p class="text-muted mb-1">UID: {{ $student->uid }}</p>
+                    <p class="fw-bold text-dark">College: {{ $student->institution->name ?? 'N/A' }}</p>
+                    <div class="border p-3 rounded-3 bg-light mt-3">
+                        <h6 class="mb-1">Membership Number</h6>
+                        <p class="fw-bold text-primary fs-5">{{ $student->membership_number }}</p>
+                    </div>
+                    <a href="{{ route('membership.download') }}" class="btn btn-outline-primary w-100 mt-3">
+                        <i class="fas fa-download me-1"></i> Download Card
+                    </a>
+                </div>
+            </div>
+            @endif
         </div>
-        <div class="col-md-3 col-6">
-            <a href="{{ route('gallery.index') }}" class="card text-center shadow-sm h-100 quick-link-card">
-                <div class="card-body p-4">
-                    <div class="quick-link-icon mb-3">
-                        <i class="fas fa-images fa-2x text-success"></i>
-                    </div>
-                    <h5 class="card-title">Gallery</h5>
-                    <p class="text-muted small">Browse photos</p>
+
+        {{-- Quick Links --}}
+        <div class="col-lg-8 mb-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-header bg-white border-0">
+                    <h5 class="card-title fw-bold">Quick Access</h5>
                 </div>
-            </a>
-        </div>
-        <div class="col-md-3 col-6">
-            <a href="{{ route('committees.index') }}" class="card text-center shadow-sm h-100 quick-link-card">
-                <div class="card-body p-4">
-                    <div class="quick-link-icon mb-3">
-                        <i class="fas fa-users fa-2x text-info"></i>
-                    </div>
-                    <h5 class="card-title">Committees</h5>
-                    <p class="text-muted small">Explore committees</p>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-4 col-6">
+                            <a href="{{ route('calendar') }}" class="card text-center shadow-sm h-100 quick-link-card text-decoration-none">
+                                <div class="card-body p-3">
+                                    <div class="quick-link-icon mb-2 text-primary">
+                                        <i class="fas fa-calendar-day fa-2x"></i>
+                                    </div>
+                                    <h6 class="card-title mb-1">Events</h6>
+                                    <p class="text-muted small mb-0">View upcoming events</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4 col-6">
+                            <a href="{{ route('gallery.index') }}" class="card text-center shadow-sm h-100 quick-link-card text-decoration-none">
+                                <div class="card-body p-3">
+                                    <div class="quick-link-icon mb-2 text-success">
+                                        <i class="fas fa-images fa-2x"></i>
+                                    </div>
+                                    <h6 class="card-title mb-1">Gallery</h6>
+                                    <p class="text-muted small mb-0">Browse photos</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4 col-6">
+                            <a href="{{ route('committees.index') }}" class="card text-center shadow-sm h-100 quick-link-card text-decoration-none">
+                                <div class="card-body p-3">
+                                    <div class="quick-link-icon mb-2 text-info">
+                                        <i class="fas fa-users fa-2x"></i>
+                                    </div>
+                                    <h6 class="card-title mb-1">Committees</h6>
+                                    <p class="text-muted small mb-0">Explore committees</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4 col-6">
+                            <a href="{{ route('notifications.index') }}" class="card text-center shadow-sm h-100 quick-link-card text-decoration-none">
+                                <div class="card-body p-3">
+                                    <div class="quick-link-icon mb-2 text-warning">
+                                        <i class="fas fa-bell fa-2x"></i>
+                                    </div>
+                                    <h6 class="card-title mb-1">Notifications</h6>
+                                    <p class="text-muted small mb-0">Check updates</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4 col-6">
+                            <a href="{{ route('payments.user.create') }}" class="card text-center shadow-sm h-100 quick-link-card text-decoration-none">
+                                <div class="card-body p-3">
+                                    <div class="quick-link-icon mb-2 text-danger">
+                                        <i class="fas fa-credit-card fa-2x"></i>
+                                    </div>
+                                    <h6 class="card-title mb-1">Working Fund</h6>
+                                    <p class="text-muted small mb-0">Make payment</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4 col-6">
+                    <a href="/user/submit-data" class="card text-center shadow-sm h-100 quick-link-card text-decoration-none">
+                        <div class="card-body p-3">
+                            <div class="quick-link-icon mb-2 text-purple">
+                                <i class="fas fa-cloud-upload-alt fa-2x"></i>
+                            </div>
+                            <h6 class="card-title mb-1">Submit Data</h6>
+                            <p class="text-muted small mb-0">Upload information</p>
+                        </div>
+                    </a>
                 </div>
-            </a>
-        </div>
-        <div class="col-md-3 col-6">
-            <a href="{{ route('notifications.index') }}" class="card text-center shadow-sm h-100 quick-link-card">
-                <div class="card-body p-4">
-                    <div class="quick-link-icon mb-3">
-                        <i class="fas fa-bell fa-2x text-warning"></i>
+                        <div class="col-md-4 col-6">
+                            <div class="card text-center shadow-sm h-100 bg-light border-0">
+                                <div class="card-body p-3 d-flex align-items-center justify-content-center">
+                                    <p class="text-muted small mb-0">More options coming soon</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <h5 class="card-title">Notifications</h5>
-                    <p class="text-muted small">Check updates</p>
                 </div>
-            </a>
-        </div>
-        <div class="col-md-3 col-6">
-            <a href="{{ route('payments.user.create') }}" class="card text-center shadow-sm h-100 quick-link-card">
-                <div class="card-body p-4">
-                    <div class="quick-link-icon mb-3">
-                        <i class="fas fa-credit-card fa-2x text-danger"></i>
-                    </div>
-                    <h5 class="card-title">Working Fund</h5>
-                    <p class="text-muted small">Make payment</p>
-                </div>
-            </a>
+            </div>
         </div>
     </div>
 
     {{-- Upcoming Events Section --}}
-    <section id="events" class="section-padding">
-        <div class="container-fluid px-0">
-            <div class="text-center mb-5">
-                <h2 class="section-title position-relative d-inline-block">Upcoming Events</h2>
-                <p class="section-subtitle text-muted">Don't miss these exciting upcoming events</p>
-            </div>
-            
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-white border-0">
+            <h5 class="card-title fw-bold mb-0">Upcoming Events</h5>
+        </div>
+        <div class="card-body">
             @if($upcomingEvents->isEmpty())
                 <div class="text-center py-5">
                     <i class="fas fa-calendar-times fa-3x text-muted mb-3"></i>
@@ -97,42 +153,40 @@
                     <p class="text-muted">Check back later for new events</p>
                 </div>
             @else
-                <div class="row" id="upcoming-events">
+                <div class="row">
                     @foreach($upcomingEvents as $event)
-                        <div class="col-md-4 mb-4">
-                            <div class="card event-card h-100 shadow-sm border-0">
-                                <div class="event-image-container">
+                        <div class="col-md-6 col-lg-4 mb-4">
+                            <div class="card h-100 shadow-sm border-0">
+                                <div class="position-relative">
                                     @if($event->image)
-                                        <img src="{{ asset('storage/' . $event->image) }}" class="card-img-top event-image" alt="{{ $event->title }}">
+                                        <img src="{{ asset('storage/' . $event->image) }}" class="card-img-top" alt="{{ $event->title }}" style="height: 180px; object-fit: cover;">
                                     @else
-                                        <div class="card-img-top event-image-placeholder d-flex align-items-center justify-content-center">
+                                        <div class="card-img-top d-flex align-items-center justify-content-center bg-light" style="height: 180px;">
                                             <i class="fas fa-calendar-alt fa-3x text-muted"></i>
                                         </div>
                                     @endif
-                                    <div class="event-date-badge">
-                                        @if($event->date)
-                                            <span class="badge bg-primary">
-                                                {{ $event->date->format('M j') }}
-                                            </span>
-                                        @endif
-                                    </div>
+                                    @if($event->date)
+                                        <span class="position-absolute top-0 end-0 m-2 badge bg-primary">
+                                            {{ $event->date->format('M j') }}
+                                        </span>
+                                    @endif
                                 </div>
                                 <div class="card-body">
-                                    <h5 class="card-title fw-bold">{{ $event->title }}</h5>
-                                    <div class="event-details mb-3">
+                                    <h6 class="card-title fw-bold">{{ $event->title }}</h6>
+                                    <div class="event-details mb-2">
                                         @if($event->date)
                                             <div class="d-flex align-items-center mb-1">
-                                                <i class="far fa-calendar text-primary me-2"></i>
-                                                <span>{{ $event->date->format('F j, Y') }}</span>
+                                                <i class="far fa-calendar text-primary me-2 fa-sm"></i>
+                                                <small>{{ $event->date->format('F j, Y') }}</small>
                                             </div>
                                         @endif
                                         <div class="d-flex align-items-center mb-2">
-                                            <i class="fas fa-map-marker-alt text-danger me-2"></i>
-                                            <span>{{ $event->location ?? 'TBA' }}</span>
+                                            <i class="fas fa-map-marker-alt text-danger me-2 fa-sm"></i>
+                                            <small>{{ $event->location ?? 'TBA' }}</small>
                                         </div>
                                     </div>
                                     @if($event->description)
-                                        <p class="card-text text-muted">{{ \Illuminate\Support\Str::limit($event->description, 100) }}</p>
+                                        <p class="card-text text-muted small">{{ \Illuminate\Support\Str::limit($event->description, 100) }}</p>
                                     @endif
                                 </div>
                                 <div class="card-footer bg-transparent border-0 pt-0">
@@ -144,98 +198,53 @@
                 </div>
             @endif
             
-            <div class="text-center mt-5">
-                <a href="{{ url('/calendar') }}" class="btn btn-primary px-4 py-2">
+            <div class="text-center mt-4">
+                <a href="{{ url('/calendar') }}" class="btn btn-primary px-4">
                     <i class="fas fa-calendar me-2"></i>View All Events
                 </a>
             </div>
         </div>
-    </section>
+    </div>
 </div>
 
 <style>
+    .card {
+        border-radius: 8px;
+        transition: transform 0.2s ease-in-out;
+    }
+    
+    .card:hover {
+        transform: translateY(-3px);
+    }
+    
     .quick-link-card {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        border-radius: 12px;
-        border: none;
-        text-decoration: none !important; /* Add this line */
+        transition: all 0.2s ease;
+        border: 1px solid #f0f0f0;
     }
     
     .quick-link-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
-        text-decoration: none !important; /* Add this line */
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08) !important;
+        text-decoration: none;
     }
     
     .quick-link-icon {
-        width: 60px;
-        height: 60px;
-        line-height: 60px;
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
         border-radius: 50%;
-        background-color: rgba(59, 89, 152, 0.1);
+        background-color: rgba(0, 0, 0, 0.03);
         margin: 0 auto;
+        transition: all 0.2s ease;
     }
     
-    .section-title {
-        font-weight: 700;
-        color: #2c3e50;
-    }
-    
-    .section-title:after {
-        content: '';
-        display: block;
-        width: 60px;
-        height: 3px;
-        background: var(--primary);
-        margin: 10px auto;
-    }
-    
-    .event-card {
-        border-radius: 12px;
-        overflow: hidden;
-        transition: transform 0.3s ease;
-    }
-    
-    .event-card:hover {
-        transform: translateY(-5px);
-    }
-    
-    .event-image-container {
-        position: relative;
-        overflow: hidden;
-        height: 200px;
-    }
-    
-    .event-image {
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.5s ease;
-    }
-    
-    .event-card:hover .event-image {
+    .quick-link-card:hover .quick-link-icon {
+        background-color: rgba(0, 0, 0, 0.05);
         transform: scale(1.05);
     }
     
-    .event-image-placeholder {
-        height: 200px;
-        background-color: #f8f9fa;
-    }
-    
-    .event-date-badge {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-    }
-    
     .alert {
-        border-radius: 10px;
+        border-radius: 8px;
         border: none;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    }
-   
-    
-    .quick-link-card:focus {
-        text-decoration: none !important; /* Add this line */
     }
 </style>
 @endsection
