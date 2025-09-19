@@ -232,6 +232,14 @@
                         <a href="{{ route('institution-data.create') }}" class="btn btn-outline-primary text-start py-3">
                             <i class="bi bi-plus-circle me-2"></i> Add Data
                         </a>
+                       <a href="{{ route('institution.reports.upload') }}" class="btn btn-outline-primary text-start py-3">
+    <i class="bi bi-plus-circle me-2"></i> Upload Monthly Report
+</a>
+
+<a href="{{ route('institution.reports.index') }}" class="btn btn-outline-primary text-start py-3">
+    <i class="bi bi-folder2-open me-2"></i> View Uploaded Reports
+</a>
+
                     </div>
                 </div>
             </div>

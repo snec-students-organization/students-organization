@@ -30,6 +30,9 @@ use App\Http\Controllers\Admin\DataCollectionController;
 use App\Http\Controllers\Admin\StudentExportController;
 
 use App\Http\Controllers\MembershipCardController;
+
+use App\Http\Controllers\MonthlyReportController;
+use App\Http\Controllers\Admin\MonthlyReportAdminController;
 // =============================
 // Public Routes
 // =============================
@@ -266,3 +269,25 @@ Route::get('/membership-card/download', [MembershipCardController::class, 'downl
 Route::get('/membership/download', [UserController::class, 'downloadMembership'])
     ->name('membership.download')
     ->middleware('auth');
+
+
+    // routes/web.php
+
+// Institution routes
+
+
+Route::middleware('auth:institution')->prefix('institution')->name('institution.')->group(function () {
+    // Upload form
+    Route::get('/reports/upload', [MonthlyReportController::class, 'create'])->name('reports.upload');
+
+    // Store report
+    Route::post('/reports/store', [MonthlyReportController::class, 'store'])->name('reports.store');
+
+    // List uploaded reports
+    Route::get('/reports', [MonthlyReportController::class, 'index'])->name('reports.index');
+});
+
+// Admin routes
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/reports', [App\Http\Controllers\Admin\MonthlyReportAdminController::class, 'index'])->name('reports.index');
+});

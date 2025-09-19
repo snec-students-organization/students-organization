@@ -122,6 +122,28 @@
                 </div>
             </div>
         </div>
+        {{-- Total Reports --}}
+        <div class="col-xl-3 col-md-6">
+    <a href="{{ route('admin.reports.index') }}" style="text-decoration:none;">
+        <div class="card dashboard-card shadow-sm card-gradient-2 text-white">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <h6>Manage Monthly Reports</h6>
+                    <p class="mb-0">View & Filter Reports by Month</p>
+                </div>
+                <div class="stat-icon bg-white text-primary">
+                    <i class="bi bi-file-earmark-text fs-3"></i>
+                </div>
+            </div>
+            <div class="card-footer bg-transparent">
+                <span class="text-white small">
+                    View Reports <i class="bi bi-arrow-right"></i>
+                </span>
+            </div>
+        </div>
+    </a>
+</div>
+
 
         
         {{-- Feature Flag Edit --}}
