@@ -31,7 +31,7 @@ class InstitutionDataController extends Controller
 
         $request->validate([
             'college_name' => 'required|string|max:255',
-            'stream' => 'required|string|max:255',
+            'stream' => 'required|in:sharea,sharea plus,she,she plus,life,life plus,bayyinath',
             'affiliation_number' => 'required|string|max:100',
             'full_address' => 'required|string',
             'college_organization_full_name' => 'required|string|max:255',

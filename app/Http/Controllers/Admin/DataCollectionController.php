@@ -15,9 +15,15 @@ class DataCollectionController extends Controller
         return view('admin.data_collection.students', compact('students'));
     }
 
-    public function institutionDataIndex()
-    {
-        $institutions = InstitutionData::with('institution')->paginate(20);
-        return view('admin.data_collection.institutions', compact('institutions'));
-    }
+   public function institutionDataIndex()
+{
+    // Get all institutions, grouped by stream
+    $institutions = InstitutionData::with('institution')
+        ->orderBy('stream')
+        ->get()
+        ->groupBy('stream');
+
+    return view('admin.data_collection.institutions', compact('institutions'));
+}
+
 }

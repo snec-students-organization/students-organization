@@ -18,10 +18,19 @@
         </div>
 
         <div class="mb-3">
-            <label for="stream" class="form-label">Stream</label>
-            <input type="text" name="stream" id="stream" class="form-control"
-                value="{{ old('stream', $institutionData->stream ?? '') }}" required>
-        </div>
+    <label for="stream" class="form-label">Stream</label>
+    <select name="stream" id="stream" class="form-select" required>
+        <option value="" disabled {{ old('stream', $institutionData->stream ?? '') == '' ? 'selected' : '' }}>-- Select Stream --</option>
+        <option value="sharea" {{ old('stream', $institutionData->stream ?? '') == 'sharea' ? 'selected' : '' }}>Sharea</option>
+        <option value="sharea plus" {{ old('stream', $institutionData->stream ?? '') == 'sharea plus' ? 'selected' : '' }}>Sharea Plus</option>
+        <option value="she" {{ old('stream', $institutionData->stream ?? '') == 'she' ? 'selected' : '' }}>SHE</option>
+        <option value="she plus" {{ old('stream', $institutionData->stream ?? '') == 'she plus' ? 'selected' : '' }}>SHE Plus</option>
+        <option value="life" {{ old('stream', $institutionData->stream ?? '') == 'life' ? 'selected' : '' }}>Life</option>
+        <option value="life plus" {{ old('stream', $institutionData->stream ?? '') == 'life plus' ? 'selected' : '' }}>Life Plus</option>
+        <option value="bayyinath" {{ old('stream', $institutionData->stream ?? '') == 'bayyinath' ? 'selected' : '' }}>Bayyinath</option>
+    </select>
+</div>
+
 
         <div class="mb-3">
             <label for="affiliation_number" class="form-label">Affiliation Number</label>
