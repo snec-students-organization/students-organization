@@ -24,14 +24,14 @@
                     <div class="card-body p-5">
                         <div class="row align-items-center">
                             <div class="col-md-8">
-                                <h2 class="h3 fw-semibold mb-3 text-primary">Who We Are</h2>
+                                <h2 class="h3 fw-semibold mb-3 text-primary">Who We Are?</h2>
                                 <p class="lead">
-                                    The <strong class="text-primary">SNEC Students Organization (SSO)</strong> is the official, student-run governing body
+                                    The <strong class="text-primary">SNEC Students' Organization (SSO)</strong> is the official, student-run governing body
                                     dedicated to fostering holistic student development, leadership, and community engagement at
                                     Sinhgad National Educational Complex.
                                 </p>
                                 <p>
-                                    We serve as the central hub for all student organizations, events, and activities at our institution,
+                                    We serve as the central hub for all students organizations, events, and activities at our institution,
                                     working to embody the vision of molding a generation of ideal scholars equipped with both secular
                                     and spiritual education.
                                 </p>

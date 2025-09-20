@@ -169,7 +169,7 @@
     <!-- Login Form -->
     <div class="login-right">
       <div class="login-card">
-        <h2>Welcome</h2>
+        <h2>Log in</h2>
         <p>New Here? <a href="/register">Create an account</a></p>
 
         @if ($errors->any())

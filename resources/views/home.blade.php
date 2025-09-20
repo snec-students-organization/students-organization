@@ -6,7 +6,22 @@
 
 @section('content')
 
+<style>
+    @media (max-width: 576px) {
+  .hero-buttons .btn {
+    padding: 0.55rem 1rem;  /* slightly more vertical padding */
+    font-size: 0.9rem;      /* readable but not too big */
+  }
+}
+@media (min-width: 992px) {
+  .hero-buttons .btn {
+    padding: 10px 70px;  /* reduced vertical padding */
+    font-size: 0.9rem;   /* slightly smaller text */
+  }
+}
 
+
+</style>
 
 <!-- Hero Section -->
 <section class="hero-section">
@@ -31,7 +46,7 @@
             <div class="hero-badge">
                 <i class="fas fa-rocket"></i> WELCOME TO SSO
             </div>
-            <h1 class="hero-title">SNEC STUDENTS ORGANIZATION</h1>
+            <h1 class="hero-title">SNEC STUDENTS' ORGANIZATION</h1>
             <div class="hero-subtitle">Empowering Future Leaders</div>
             
             <!-- Paragraph visible only on large screens -->
@@ -40,14 +55,14 @@
             </p>
             
             <div class="hero-buttons">
-                <a href="{{ route('register') }}" class="btn btn-primary">
-    <i class="fas fa-user-plus"></i> Join Now
-</a>
-<a href="{{ route('calendar') }}" class="btn btn-secondary">
-    <i class="fas fa-calendar-alt"></i> Upcoming Events
-</a>
+    <a href="{{ route('register') }}" class="btn btn-primary btn-sm d-block d-sm-inline-block">
+        <i class="fas fa-user-plus"></i> Join Now
+    </a>
+    <a href="{{ route('calendar') }}" class="btn btn-secondary btn-sm d-block d-sm-inline-block mt-2 mt-sm-0 ms-sm-2">
+        <i class="fas fa-calendar-alt"></i> Upcoming Events
+    </a>
+</div>
 
-            </div>
         </div>
         
         <div class="hero-image">
@@ -132,7 +147,7 @@
                 <h2 class="section-title" style="color: rgba(255, 255, 255, 1);">About SSO</h2>
 
                 <p class="mb-4" style="color: #cce5ff; line-height: 1.6;">
-                    The SNEC Students Organization (SSO) is a dynamic platform dedicated to fostering student growth, leadership, and community engagement. We serve as the central hub for all student organizations, events, and activities at our institution.
+                    The SNEC Students' Organization (SSO) is a dynamic platform dedicated to fostering students growth, leadership, and community engagement. We serve as the central hub for all student organizations, events, and activities at our institution.
                 </p>
                 <p class="mb-4" style="color: #cce5ff; line-height: 1.6;">
                     Our mission is to empower students by providing opportunities for skill development, networking, and collaborative projects. Through our platform, students can discover organizations that match their interests, participate in events, and develop leadership capabilities.
@@ -140,14 +155,36 @@
                 <p class="mb-4" style="color: #cce5ff; line-height: 1.6;">
                     Whether you're looking to join an existing organization, start a new one, or simply participate in campus events, SSO provides the tools and resources you need to make the most of your college experience.
                 </p>
-                
             </div>
+
+            <!-- Bootstrap Carousel -->
             <div class="about-image">
-                <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Students collaborating">
+                <div id="aboutCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="/images/logolaunching.jpg" class="d-block w-100" alt="SSO Launching">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="/images/event1.jpg" class="d-block w-100" alt="Event 1">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="/images/event2.jpg" class="d-block w-100" alt="Event 2">
+                        </div>
+                    </div>
+
+                    <!-- Controls -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#aboutCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#aboutCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 </section>
+
 
 <!-- Features Section -->
 <section id="features" class="section-padding">
