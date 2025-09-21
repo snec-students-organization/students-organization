@@ -18,19 +18,20 @@
         </div>
 
         <div class="mb-3">
-    <label for="stream" class="form-label">Stream</label>
-    <select name="stream" id="stream" class="form-select" required>
-        <option value="" disabled {{ old('stream', $institutionData->stream ?? '') == '' ? 'selected' : '' }}>-- Select Stream --</option>
-        <option value="sharea" {{ old('stream', $institutionData->stream ?? '') == 'sharea' ? 'selected' : '' }}>Sharea</option>
-        <option value="sharea plus" {{ old('stream', $institutionData->stream ?? '') == 'sharea plus' ? 'selected' : '' }}>Sharea Plus</option>
-        <option value="she" {{ old('stream', $institutionData->stream ?? '') == 'she' ? 'selected' : '' }}>SHE</option>
-        <option value="she plus" {{ old('stream', $institutionData->stream ?? '') == 'she plus' ? 'selected' : '' }}>SHE Plus</option>
-        <option value="life" {{ old('stream', $institutionData->stream ?? '') == 'life' ? 'selected' : '' }}>Life</option>
-        <option value="life plus" {{ old('stream', $institutionData->stream ?? '') == 'life plus' ? 'selected' : '' }}>Life Plus</option>
-        <option value="bayyinath" {{ old('stream', $institutionData->stream ?? '') == 'bayyinath' ? 'selected' : '' }}>Bayyinath</option>
-    </select>
-</div>
-
+            <label for="stream" class="form-label">Stream</label>
+            <select name="stream" id="stream" class="form-select" required>
+                <option value="" disabled {{ old('stream', $institutionData->stream ?? '') == '' ? 'selected' : '' }}>-- Select Stream --</option>
+                <option value="sharia" {{ old('stream', $institutionData->stream ?? '') == 'sharia' ? 'selected' : '' }}>Sharia</option>
+                <option value="sharia plus" {{ old('stream', $institutionData->stream ?? '') == 'sharia plus' ? 'selected' : '' }}>Sharia Plus</option>
+                <option value="she" {{ old('stream', $institutionData->stream ?? '') == 'she' ? 'selected' : '' }}>SHE</option>
+                <option value="she plus" {{ old('stream', $institutionData->stream ?? '') == 'she plus' ? 'selected' : '' }}>SHE Plus</option>
+                <option value="life" {{ old('stream', $institutionData->stream ?? '') == 'life' ? 'selected' : '' }}>Life</option>
+                <option value="life plus" {{ old('stream', $institutionData->stream ?? '') == 'life plus' ? 'selected' : '' }}>Life Plus</option>
+                <option value="life for girls" {{ old('stream', $institutionData->stream ?? '') == 'life for girls' ? 'selected' : '' }}>Life for Girls</option>
+                <option value="life plus for girls" {{ old('stream', $institutionData->stream ?? '') == 'life plus for girls' ? 'selected' : '' }}>Life Plus for Girls</option>
+                <option value="bayyinath" {{ old('stream', $institutionData->stream ?? '') == 'bayyinath' ? 'selected' : '' }}>Bayyinath</option>
+            </select>
+        </div>
 
         <div class="mb-3">
             <label for="affiliation_number" class="form-label">Affiliation Number</label>

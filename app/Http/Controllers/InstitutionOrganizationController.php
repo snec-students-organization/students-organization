@@ -7,9 +7,18 @@ use App\Models\Organization;
 
 class InstitutionOrganizationController extends Controller
 {
-    
-    
-
+    // Centralized streams list
+    private $streams = [
+        'sharia',
+        'sharia plus',
+        'life',
+        'life plus',
+        'life for girls',
+        'life plus for girls',
+        'bayyinath',
+        'she',
+        'she plus',
+    ];
 
     // Show form to add or edit organization. Load existing if found.
     public function showOrganizationFormForInstitution()
@@ -17,7 +26,7 @@ class InstitutionOrganizationController extends Controller
         $institution = auth()->guard('institution')->user();
         $organization = Organization::where('institution_id', $institution->id)->first();
 
-        $streams = ['sharea', 'sharea plus', 'life', 'life plus', 'bayyinath', 'she', 'she plus'];
+        $streams = $this->streams;
 
         return view('institution.organization.form', compact('organization', 'streams'));
     }
@@ -38,7 +47,7 @@ class InstitutionOrganizationController extends Controller
             'chairman_number' => 'nullable|string|max:255',
             'convenor_name' => 'nullable|string|max:255',
             'convenor_number' => 'nullable|string|max:255',
-            'stream' => 'required|string',
+            'stream' => 'required|string|in:' . implode(',', $this->streams),
         ]);
 
         $data['institution_id'] = $institution->id;
@@ -48,8 +57,8 @@ class InstitutionOrganizationController extends Controller
             $data
         );
 
-        return redirect()->route('institution.organization.form')->with('success', 'Organization details saved successfully.');
+        return redirect()
+            ->route('institution.organization.form')
+            ->with('success', 'Organization details saved successfully.');
     }
-
-    
 }
