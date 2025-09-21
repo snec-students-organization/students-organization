@@ -2,17 +2,20 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Membership Card</title>
+    <title>SSO Membership Card</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         
         body {
             font-family: 'Inter', 'DejaVu Sans', sans-serif;
-            background-color: #f5f7fa;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
             margin: 0;
             padding: 0;
             height: 100vh;
             width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         /* Wrapper to center content */
@@ -40,35 +43,34 @@
             overflow: hidden;
         }
         
-        /* SSO Logo Background */
-        .card::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 300px;
-            height: 300px;
-            background-image: url("{{ asset('images/SSO.png') }}");
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: contain;
-            opacity: 0.1;
-            z-index: 0;
-        }
-        
-        /* Green SSO Text Watermark */
+        /* SSO Watermark Background */
         .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("/images/SSO.png");
+    background-repeat: repeat;
+    z-index: 0;
+    opacity: 0.5;
+}
+
+        
+        /* Large SSO Text Watermark */
+        .card::after {
             content: 'SSO';
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) rotate(-45deg);
-            font-size: 100px;
-            font-weight: 800;
-            color: rgba(16, 185, 129, 0.15);
+            font-size: 120px;
+            font-weight: 900;
+            color: rgba(16, 185, 129, 0.05);
             z-index: 0;
-            letter-spacing: 5px;
+            letter-spacing: 8px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.03);
         }
         
         .header, .member-details, .footer {
@@ -188,10 +190,9 @@
         .logo-image {
             width: 30px;
             height: 30px;
-            background-image: url("{{ asset('images/SSO.png') }}");
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
+            background: linear-gradient(135deg, #4a6cf7, #6a82fb);
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'%3E%3C/circle%3E%3Cpath d='M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8z'%3E%3C/path%3E%3Cline x1='12' y1='8' x2='12' y2='16'%3E%3C/line%3E%3Cline x1='8' y1='12' x2='16' y2='12'%3E%3C/line%3E%3C/svg%3E") center/contain no-repeat;
+            -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'%3E%3C/circle%3E%3Cpath d='M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8z'%3E%3C/path%3E%3Cline x1='12' y1='8' x2='12' y2='16'%3E%3C/line%3E%3Cline x1='8' y1='12' x2='16' y2='12'%3E%3C/line%3E%3C/svg%3E") center/contain no-repeat;
         }
         
         /* Top gradient bar */

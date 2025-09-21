@@ -165,10 +165,10 @@
                             <img src="/images/logolaunching.jpg" class="d-block w-100" alt="SSO Launching">
                         </div>
                         <div class="carousel-item">
-                            <img src="/images/event1.jpg" class="d-block w-100" alt="Event 1">
+                            <img src="\images\sso about 1.jpg" class="d-block w-100" alt="Event 1">
                         </div>
                         <div class="carousel-item">
-                            <img src="/images/event2.jpg" class="d-block w-100" alt="Event 2">
+                            <img src="\images\sso about.jpg" class="d-block w-100" alt="Event 2">
                         </div>
                     </div>
 
