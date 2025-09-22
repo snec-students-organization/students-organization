@@ -7,7 +7,7 @@
     <div class="welcome-header bg-gradient-primary rounded-3 p-4 mb-4 text-white shadow">
         <div class="d-flex justify-content-between align-items-center">
             <div>
-                <h1 class="fw-bold mb-1">👋 Welcome, {{ auth('institution')->user()->name }}</h1>
+                <h1 class="fw-bold mb-1"> {{ auth('institution')->user()->name }}</h1>
                 <p class="mb-0 opacity-75">Here's what's happening with your institution today</p>
             </div>
             <div class="d-none d-md-block">

@@ -216,7 +216,7 @@
                     </button>
                     <span class="navbar-brand ms-3 mb-0 h1 fs-4">@yield('page-title', 'Dashboard')</span>
                     <div class="ms-auto user-welcome">
-                        <i class="bi bi-person-circle"></i> Welcome, {{ auth('institution')->user()->name }}
+                        <i class="bi bi-person-circle"></i>  {{ auth('institution')->user()->name }}
                     </div>
                 </div>
             </nav>
