@@ -191,8 +191,8 @@
                 <a href="{{ route('institution.organization.form') }}" class="list-group-item list-group-item-action">
                     <i class="bi bi-building"></i> Organization Details
                 </a>
-                <a href="{{ route('institution.details.add') }}" class="list-group-item list-group-item-action">
-                    <i class="bi bi-plus-circle"></i> Add Details
+                <a href="{{ route('institution-data.create') }}" class="list-group-item list-group-item-action">
+                    <i class="bi bi-plus-circle"></i> Add Organization Data
                 </a>
                 <a href="{{ route('payments.institution.create') }}" class="list-group-item list-group-item-action">
                     <i class="bi bi-credit-card"></i> Payments

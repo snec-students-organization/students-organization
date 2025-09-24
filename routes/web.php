@@ -100,6 +100,10 @@ Route::middleware(['auth:institution'])->group(function () {
     Route::get('/students', [InstitutionController::class, 'studentsIndex'])->name('institution.students.index');
     Route::get('/students/create', [InstitutionController::class, 'studentsCreate'])->name('institution.students.create');
     Route::post('/students', [InstitutionController::class, 'studentsStore'])->name('institution.students.store');
+    Route::get('/students/{student}/edit', [InstitutionController::class, 'studentsEdit'])->name('institution.students.edit');
+Route::put('/students/{student}', [InstitutionController::class, 'studentsUpdate'])->name('institution.students.update');
+Route::delete('/students/{student}', [InstitutionController::class, 'studentsDestroy'])->name('institution.students.destroy');
+
 
     // Payments (Institution)
     Route::get('/payments/institution', [PaymentController::class, 'createInstitutionPayment'])->name('payments.institution.create');
