@@ -63,6 +63,7 @@ class PaymentController extends Controller
             'no_of_students'   => 'required|integer|min:1',
             'paid_students_uid'=> 'required|string',
             'screenshot'       => 'required|image|max:2048',
+            'description'      => 'nullable|string|max:1000',
         ]);
 
         $screenshotPath = $request->file('screenshot')->store('payments', 'public');
@@ -74,6 +75,7 @@ class PaymentController extends Controller
             'no_of_students'    => $request->no_of_students,
             'paid_students_uid' => json_encode(array_map('trim', explode(',', $request->paid_students_uid))),
             'screenshot_path'   => $screenshotPath,
+            'description'      => $request->description,
         ]);
 
         return redirect()->back()->with('success', 'Institution payment submitted successfully!');

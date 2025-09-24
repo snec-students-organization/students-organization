@@ -23,6 +23,7 @@ class Payment extends Model
         'no_of_students',
         'paid_students_uid',
         'amount',
+        'description',
     ];
 }
 

@@ -17,6 +17,7 @@
                 <th>Amount</th>
                 <th>Screenshot</th>
                 <th>Extra Info</th>
+                <th>Description</th> {{-- ✅ New column --}}
             </tr>
         </thead>
         <tbody>
@@ -62,16 +63,16 @@
                         {{ $payment->paid_students_uid ? implode(', ', json_decode($payment->paid_students_uid, true)) : 'N/A' }}
                     @endif
                 </td>
+                <td>
+                    {{ $payment->description ?? '—' }} {{-- ✅ Show description --}}
+                </td>
             </tr>
             @empty
             <tr>
-                <td colspan="6" class="text-center text-muted">No payments found.</td>
+                <td colspan="7" class="text-center text-muted">No payments found.</td>
             </tr>
             @endforelse
         </tbody>
     </table>
 </div>
 @endsection
-
-
-

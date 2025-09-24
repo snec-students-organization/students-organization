@@ -117,17 +117,20 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="col-md-4 col-6">
-                            <a href="{{ route('payments.user.create') }}" class="card text-center shadow-sm h-100 quick-link-card text-decoration-none">
-                                <div class="card-body p-3">
-                                    <div class="quick-link-icon mb-2 text-danger">
-                                        <i class="fas fa-credit-card fa-2x"></i>
-                                    </div>
-                                    <h6 class="card-title mb-1">Working Fund</h6>
-                                    <p class="text-muted small mb-0">Make payment</p>
-                                </div>
-                            </a>
-                        </div>
+                      {{-- 
+<div class="col-md-4 col-6">
+    <a href="{{ route('payments.user.create') }}" class="card text-center shadow-sm h-100 quick-link-card text-decoration-none">
+        <div class="card-body p-3">
+            <div class="quick-link-icon mb-2 text-danger">
+                <i class="fas fa-credit-card fa-2x"></i>
+            </div>
+            <h6 class="card-title mb-1">Working Fund</h6>
+            <p class="text-muted small mb-0">Make payment</p>
+        </div>
+    </a>
+</div>
+--}}
+
                         <div class="col-md-4 col-6">
                     <a href="/user/submit-data" class="card text-center shadow-sm h-100 quick-link-card text-decoration-none">
                         <div class="card-body p-3">

@@ -19,7 +19,6 @@
             <p><i>No QR uploaded</i></p>
         @endif
 
-        {{-- Error Messages --}}
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -30,7 +29,6 @@
             </div>
         @endif
 
-        {{-- Success Message --}}
         @if (session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
@@ -42,6 +40,8 @@
             <input type="number" name="no_of_students" placeholder="Number of Students" class="form-control mb-2" required>
             <textarea name="paid_students_uid" placeholder="Enter UID of Paid Students (comma separated)" class="form-control mb-2" required></textarea>
             
+            <textarea name="description" class="form-control mb-2" placeholder="Optional description..."></textarea>
+
             <label class="form-label">Upload Screenshot</label>
             <input type="file" name="screenshot" class="form-control mb-3" accept="image/*" required>
             
@@ -50,4 +50,3 @@
     </div>
 </div>
 @endsection
-
