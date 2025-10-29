@@ -26,33 +26,6 @@
                             @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
 
-                        {{-- Father Name --}}
-                        <div class="col-md-12">
-                            <label for="father_name" class="form-label fw-semibold">Father's Name</label>
-                            <input type="text" name="father_name" id="father_name"
-                                   class="form-control form-control-lg @error('father_name') is-invalid @enderror"
-                                   value="{{ old('father_name', $student->father_name) }}" required>
-                            @error('father_name') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                        </div>
-
-                        {{-- Address --}}
-                        <div class="col-md-12">
-                            <label for="address" class="form-label fw-semibold">Address</label>
-                            <textarea name="address" id="address" rows="3"
-                                      class="form-control form-control-lg @error('address') is-invalid @enderror"
-                                      required>{{ old('address', $student->address) }}</textarea>
-                            @error('address') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                        </div>
-
-                        {{-- Contact Number --}}
-                        <div class="col-md-6">
-                            <label for="contact_number" class="form-label fw-semibold">Contact Number</label>
-                            <input type="text" name="contact_number" id="contact_number"
-                                   class="form-control form-control-lg @error('contact_number') is-invalid @enderror"
-                                   value="{{ old('contact_number', $student->contact_number) }}" required>
-                            @error('contact_number') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                        </div>
-
                         {{-- UID --}}
                         <div class="col-md-6">
                             <label for="uid" class="form-label fw-semibold">UID</label>
@@ -78,13 +51,13 @@
                         </div>
 
                         {{-- Stream --}}
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <label for="stream" class="form-label fw-semibold">Stream</label>
                             <select name="stream" id="stream"
                                     class="form-select form-select-lg @error('stream') is-invalid @enderror" required>
                                 <option value="">-- Select Stream --</option>
                                 @foreach([
-                                    'sharea','sharea plus','she','she plus','life','life plus','bayyinath',
+                                    'sharia','sharia plus','she','she plus','life','life plus','bayyinath',
                                     'life for girls','life plus for girls'
                                 ] as $stream)
                                     <option value="{{ $stream }}" {{ old('stream', $student->stream) == $stream ? 'selected' : '' }}>
