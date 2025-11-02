@@ -1,5 +1,50 @@
 @extends('layouts.app')
 
+<style>
+    .logo-ring-wrapper {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, #0b1120 60%, #000 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Removed outer glow spread */
+    box-shadow: inset 0 0 30px rgba(0, 255, 255, 0.1);
+}
+
+.logo-ring-wrapper::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 6px solid #00ffd5;
+    /* Removed outer glow */
+    box-shadow:
+        0 0 8px #00ffd5,
+        inset 0 0 10px rgba(0, 255, 213, 0.3);
+    z-index: 0;
+}
+
+.logo-ring-img {
+    position: relative;
+    width: 100px;
+    height: auto;
+    z-index: 2;
+    filter: drop-shadow(0 0 10px rgba(0, 255, 200, 0.4));
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.logo-ring-wrapper:hover .logo-ring-img {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 18px rgba(0, 255, 255, 0.8));
+}
+
+
+
+</style>
+
 @section('content')
 <section class="about-section py-5">
     <div class="container">
@@ -28,7 +73,7 @@
                                 <p class="lead">
                                     The <strong class="text-primary">SNEC Students' Organization (SSO)</strong> is the official, student-run governing body
                                     dedicated to fostering holistic student development, leadership, and community engagement at
-                                    Sinhgad National Educational Complex.
+                                    SAMASTHA NATIONAL EDUCATION COUNCIL (SNEC).
                                 </p>
                                 <p>
                                     We serve as the central hub for all students organizations, events, and activities at our institution,
@@ -37,9 +82,13 @@
                                 </p>
                             </div>
                             <div class="col-md-4 text-center">
-                                <div class="about-icon bg-primary rounded-circle d-inline-flex align-items-center justify-content-center p-4">
-                                    <i class="fas fa-users fa-3x text-white"></i>
-                                </div>
+    <div class="logo-ring-wrapper d-inline-flex align-items-center justify-content-center">
+        <img src="{{ asset('images/SSO.png') }}" alt="SSO Logo" class="logo-ring-img">
+    </div>
+</div>
+
+
+
                             </div>
                         </div>
                     </div>
