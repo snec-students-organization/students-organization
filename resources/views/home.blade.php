@@ -184,6 +184,23 @@
         </div>
     </div>
 </section>
+<style>
+    .about-image .carousel-inner {
+    width: 100%;
+    height: 350px; /* Adjust as needed */
+    overflow: hidden;
+    border-radius: 12px; /* optional for smooth corners */
+}
+
+.about-image .carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* ensures image fills area without distortion */
+    object-position: center; /* centers the image */
+    transition: transform 0.5s ease-in-out;
+}
+
+</style>
 
 
 <!-- Features Section -->
