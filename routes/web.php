@@ -33,6 +33,7 @@ use App\Http\Controllers\MembershipCardController;
 
 use App\Http\Controllers\MonthlyReportController;
 use App\Http\Controllers\Admin\MonthlyReportAdminController;
+use App\Http\Controllers\OnlineCourseController;
 // =============================
 // Public Routes
 // =============================
@@ -61,7 +62,7 @@ Route::delete('/notifications/{notification}', [NotificationController::class, '
 // Authentication Routes (users)
 // =============================
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 // =============================
 // Institution Login Routes
@@ -101,8 +102,8 @@ Route::middleware(['auth:institution'])->group(function () {
     Route::get('/students/create', [InstitutionController::class, 'studentsCreate'])->name('institution.students.create');
     Route::post('/students', [InstitutionController::class, 'studentsStore'])->name('institution.students.store');
     Route::get('/students/{student}/edit', [InstitutionController::class, 'studentsEdit'])->name('institution.students.edit');
-Route::put('/students/{student}', [InstitutionController::class, 'studentsUpdate'])->name('institution.students.update');
-Route::delete('/students/{student}', [InstitutionController::class, 'studentsDestroy'])->name('institution.students.destroy');
+    Route::put('/students/{student}', [InstitutionController::class, 'studentsUpdate'])->name('institution.students.update');
+    Route::delete('/students/{student}', [InstitutionController::class, 'studentsDestroy'])->name('institution.students.destroy');
 
 
     // Payments (Institution)
@@ -126,8 +127,8 @@ Route::middleware(['auth', 'admin'])
         // Organizations (CRUD except index, which is public)
         Route::resource('organizations', OrganizationController::class)->except(['index']);
         // Verification route
-    Route::put('organizations/{organization}/verify', [OrganizationController::class, 'verify'])
-        ->name('organizations.verify');
+        Route::put('organizations/{organization}/verify', [OrganizationController::class, 'verify'])
+            ->name('organizations.verify');
 
         // Events (admin full control)
         Route::get('/events', [EventController::class, 'adminIndex'])->name('events.index');
@@ -148,8 +149,8 @@ Route::middleware(['auth', 'admin'])
         Route::resource('gallery-events.images', EventImageController::class);
         // Mark/Unmark gallery event image
         Route::post('gallery-events/{event}/images/{image}/mark', [EventImageController::class, 'toggleMark'])->name('gallery-events.images.mark');
-        
-       
+
+
 
 
         // Upcoming Events
@@ -160,7 +161,7 @@ Route::middleware(['auth', 'admin'])
 
         // Admin Student verification
         Route::get('students', [AdminController::class, 'studentsIndex'])->name('students.index');
-      
+
 
 
         // Admin Payments view
@@ -169,10 +170,10 @@ Route::middleware(['auth', 'admin'])
         Route::get('/payment-settings', [PaymentSettingController::class, 'edit'])->name('payment-settings.edit');
         Route::post('/payment-settings', [PaymentSettingController::class, 'update'])->name('payment-settings.update');
 
-   
+
 
     });
-     
+
 Route::middleware(['auth:institution'])
     ->prefix('institution')
     ->name('institution.')
@@ -185,7 +186,7 @@ Route::middleware(['auth:institution'])
     });
 
 
-    Route::middleware('auth:institution')->prefix('institution')->name('institution.')->group(function () {
+Route::middleware('auth:institution')->prefix('institution')->name('institution.')->group(function () {
     Route::get('/details/add', [InstitutionDashboardController::class, 'addDetails'])->name('details.add');
     Route::post('/details/store', [InstitutionDashboardController::class, 'storeDetails'])->name('details.store');
     Route::get('/details/edit', [InstitutionDashboardController::class, 'editDetails'])->name('details.edit');
@@ -196,7 +197,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/institutions', [AdminInstitutionController::class, 'index'])->name('institutions.index');
     Route::get('/institutions/{institution}', [AdminInstitutionController::class, 'show'])->name('institutions.show');
 
-   
+
 });
 Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('feature-flags', [FeatureFlagController::class, 'index'])->name('admin.feature_flags.index');
@@ -213,9 +214,9 @@ Route::middleware('auth:institution')->group(function () {
 
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
-    
+
     Route::get('/data-collection/institutions', [DataCollectionController::class, 'institutionDataIndex'])->name('data.collection.institutions');
-    
+
 });
 
 Route::middleware(['auth'])->group(function () {
@@ -238,13 +239,33 @@ Route::middleware('auth')->group(function () {
 
     Route::put('/user/details/update', [UserController::class, 'updateDetails'])
         ->name('user.student.update');
+
+    // Online Course Routes
+    Route::get('/online-course', [OnlineCourseController::class, 'index'])->name('online-course.index');
+    Route::get('/online-course/activities', [OnlineCourseController::class, 'activities'])->name('online-course.activities');
+    Route::get('/online-course/quizzes', [OnlineCourseController::class, 'quizzes'])->name('online-course.quizzes');
+    Route::post('/online-course/register', [OnlineCourseController::class, 'register'])->name('online-course.register');
+    Route::post('/online-course/attendance', [OnlineCourseController::class, 'markAttendance'])->name('online-course.attendance');
 });
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::patch('students/{student}/status', [App\Http\Controllers\AdminController::class, 'updateStudentStatus'])
         ->name('student.updateStatus');
 
-        
+    Route::get('/online-course', [App\Http\Controllers\Admin\OnlineCourseController::class, 'index'])->name('online-course.index');
+    Route::post('/online-course/settings', [App\Http\Controllers\Admin\OnlineCourseController::class, 'updateSettings'])->name('online-course.settings.update');
+
+    // Activities Management
+    Route::get('/online-course/activities', [App\Http\Controllers\Admin\ActivityController::class, 'index'])->name('activities.index');
+    Route::post('/online-course/activities', [App\Http\Controllers\Admin\ActivityController::class, 'store'])->name('activities.store');
+    Route::delete('/online-course/activities/{activity}', [App\Http\Controllers\Admin\ActivityController::class, 'destroy'])->name('activities.destroy');
+
+    // Quizzes Management
+    Route::get('/online-course/quizzes', [App\Http\Controllers\Admin\QuizController::class, 'index'])->name('quizzes.index');
+    Route::post('/online-course/quizzes', [App\Http\Controllers\Admin\QuizController::class, 'store'])->name('quizzes.store');
+    Route::delete('/online-course/quizzes/{quiz}', [App\Http\Controllers\Admin\QuizController::class, 'destroy'])->name('quizzes.destroy');
+
+
 });
 
 Route::get('admin/students-by-institution', [AdminController::class, 'studentsByInstitution'])
@@ -254,9 +275,9 @@ Route::get('admin/students-by-institution', [AdminController::class, 'studentsBy
 Route::get('/admin/institutions/{id}/export-students', [App\Http\Controllers\Admin\StudentController::class, 'exportInstitutionStudents'])
     ->name('admin.institutions.exportStudents');
 
- 
 
-    Route::prefix('admin')->group(function () {
+
+Route::prefix('admin')->group(function () {
     Route::get('/students/export/{institutionId}', [StudentExportController::class, 'exportInstitutionStudents'])
         ->name('admin.students.exportByInstitution');
 
@@ -267,15 +288,15 @@ Route::get('/admin/institutions/{id}/export-students', [App\Http\Controllers\Adm
 
 
 Route::get('/membership-card/download', [MembershipCardController::class, 'download'])
-     ->name('membership-card.download')
-     ->middleware('auth:institution');
+    ->name('membership-card.download')
+    ->middleware('auth:institution');
 
 Route::get('/membership/download', [UserController::class, 'downloadMembership'])
     ->name('membership.download')
     ->middleware('auth');
 
 
-    // routes/web.php
+// routes/web.php
 
 // Institution routes
 

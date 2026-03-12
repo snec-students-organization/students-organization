@@ -588,6 +588,12 @@
         <i class="bi bi-building me-2"></i> Organizations
     </a>
 </li>
+
+<li>
+    <a class="dropdown-item {{ request()->routeIs('admin.online-course.index') ? 'active fw-bold' : '' }}" href="{{ route('admin.online-course.index') }}">
+        <i class="bi bi-laptop me-2"></i> Online Course Management
+    </a>
+</li>
 </ul>
 </li>
 
