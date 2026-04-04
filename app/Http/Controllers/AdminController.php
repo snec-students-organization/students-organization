@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\ActivityLog; 
 use App\Models\Institution;
 use App\Models\Student;
+use App\Models\AdmissionData;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -21,6 +22,7 @@ class AdminController extends Controller
         $eventCount = Event::count();
         $userCount  = User::count();
         $studentCount = Student::count();
+        $admissionCount = AdmissionData::count();
 
         $upcomingEvents = Event::where('start', '>=', now())
                                ->orderBy('start', 'asc')
@@ -41,6 +43,7 @@ class AdminController extends Controller
             'eventCount',
             'userCount',
             'studentCount',
+            'admissionCount',
             'upcomingEvents',
             'activities',
             'quickLinks'

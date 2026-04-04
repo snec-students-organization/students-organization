@@ -81,6 +81,16 @@
                             <i class="bi bi-people me-1"></i> Committees
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.data.collection.admission') }}" class="nav-link {{ request()->routeIs('admin.data.collection.admission') ? 'active' : '' }}">
+                            <i class="bi bi-file-earmark-text me-1"></i> Admission Data
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.scratch_card_payments.index') }}" class="nav-link {{ request()->routeIs('admin.scratch_card_payments.*') ? 'active' : '' }}">
+                            <i class="bi bi-cash-stack me-1"></i> Scratch Card Payments
+                        </a>
+                    </li>
                 </ul>
                 
                 <div class="d-flex">

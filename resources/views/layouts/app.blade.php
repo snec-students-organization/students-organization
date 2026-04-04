@@ -574,6 +574,13 @@
         <i class="bi bi-gear me-2"></i> Payment Settings
       </a>
     </li>
+
+    <!-- Scratch Card Payments -->
+    <li>
+      <a class="dropdown-item {{ request()->routeIs('admin.scratch_card_payments.*') ? 'active fw-bold' : '' }}" href="{{ route('admin.scratch_card_payments.index') }}">
+        <i class="bi bi-cash-stack me-2"></i> Scratch Card Payments
+      </a>
+    </li>
     
     <!-- institutions-->
       <li>
@@ -818,6 +825,7 @@
         </div>
     </footer>
 
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
 

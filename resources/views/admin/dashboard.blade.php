@@ -248,6 +248,50 @@
                     </div>
                 </a>
             </div>
+
+            {{-- Admission Data Collection --}}
+            <div class="col-xl-3 col-md-6">
+                <a href="{{ route('admin.data.collection.admission') }}" style="text-decoration:none;">
+                    <div class="card dashboard-card shadow-sm card-gradient-1 text-white">
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6>Admission Data</h6>
+                                <h3>{{ $admissionCount }}</h3>
+                            </div>
+                            <div class="stat-icon bg-white text-primary">
+                                <i class="bi bi-file-earmark-text fs-3"></i>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <span class="text-white small">
+                                View Admissions <i class="bi bi-arrow-right"></i>
+                            </span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            {{-- Scratch Card Payments --}}
+            <div class="col-xl-3 col-md-6">
+                <a href="{{ route('admin.scratch_card_payments.index') }}" style="text-decoration:none;">
+                    <div class="card dashboard-card shadow-sm card-gradient-3 text-white">
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6>Scratch Card Payments</h6>
+                                <p class="mb-0">Manage Manual Payments</p>
+                            </div>
+                            <div class="stat-icon bg-white text-warning">
+                                <i class="bi bi-cash-stack fs-3"></i>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <span class="text-white small">
+                                View Payments <i class="bi bi-arrow-right"></i>
+                            </span>
+                        </div>
+                    </div>
+                </a>
+            </div>
         </div>
 
 

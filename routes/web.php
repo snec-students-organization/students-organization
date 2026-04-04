@@ -41,6 +41,9 @@ use App\Http\Controllers\OnlineCourseController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/about', [App\Http\Controllers\AboutController::class, 'index'])->name('about');
+Route::get('/admission-campaign', [HomeController::class, 'admissionCampaign'])->name('admission.campaign');
+Route::post('/admission-campaign/submit', [HomeController::class, 'submitAdmissionData'])->name('admission.submit');
+Route::post('/admission-campaign/claim-scratch-card', [HomeController::class, 'claimScratchCard'])->name('admission.claimScratchCard');
 
 Route::get('/organizations', [OrganizationController::class, 'index'])->name('organizations.index');
 
@@ -169,6 +172,12 @@ Route::middleware(['auth', 'admin'])
         //payment settings
         Route::get('/payment-settings', [PaymentSettingController::class, 'edit'])->name('payment-settings.edit');
         Route::post('/payment-settings', [PaymentSettingController::class, 'update'])->name('payment-settings.update');
+
+        Route::get('/data-collection/admission', [DataCollectionController::class, 'admissionDataIndex'])->name('data.collection.admission');
+        Route::get('/data-collection/admission/export', [DataCollectionController::class, 'exportAdmissionData'])->name('data.collection.admission.export');
+
+        Route::get('/scratch-card-payments', [App\Http\Controllers\Admin\ScratchCardPaymentController::class, 'index'])->name('scratch_card_payments.index');
+        Route::post('/scratch-card-payments/{id}/mark-as-paid', [App\Http\Controllers\Admin\ScratchCardPaymentController::class, 'markAsPaid'])->name('scratch_card_payments.mark_as_paid');
 
 
 

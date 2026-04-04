@@ -205,6 +205,240 @@
             </div>
         </div>
     </section>
+
+    </section>
+
+    <!-- Modern Admission Campaign Section -->
+    <section class="admission-campaign-section section-padding position-relative overflow-hidden"
+        style="background: #0a1929;">
+        <!-- Background Decorative Elements -->
+        <div class="position-absolute top-0 start-0 w-100 h-100" style="z-index: 1;">
+            <div class="position-absolute"
+                style="width: 300px; height: 300px; background: rgba(99, 255, 214, 0.05); border-radius: 50%; blur: 80px; top: -100px; right: -50px; filter: blur(80px);">
+            </div>
+            <div class="position-absolute"
+                style="width: 250px; height: 250px; background: rgba(0, 188, 212, 0.05); border-radius: 50%; blur: 80px; bottom: -50px; left: -50px; filter: blur(80px);">
+            </div>
+        </div>
+
+        <div class="container position-relative" style="z-index: 2;">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-5 mb-lg-0" data-aos="fade-right">
+                    <div class="glass-card p-5">
+                        <div class="campaign-badge mb-3">ADMISSION OPEN 2026</div>
+                        <h2 class="modern-title mb-4">Shaping the <span class="gradient-text">Future of Excellence</span>
+                        </h2>
+                        <p class="mb-4 text-light-blue" style="font-size: 1.15rem; line-height: 1.7;">
+                            Embark on a journey of discovery and leadership with SNEC. Our holistic approach combines
+                            academic rigor with character building, preparing you to lead in a changing world.
+                        </p>
+                        <div class="modern-features mb-5">
+                            <div class="modern-feature-item">
+                                <div class="feature-bullet"><i class="fas fa-gem"></i></div>
+                                <span>World-class Curriculum</span>
+                            </div>
+                            <div class="modern-feature-item">
+                                <div class="feature-bullet"><i class="fas fa-globe"></i></div>
+                                <span>Global Opportunities</span>
+                            </div>
+                            <div class="modern-feature-item">
+                                <div class="feature-bullet"><i class="fas fa-shield-alt"></i></div>
+                                <span>Values-based Education</span>
+                            </div>
+                        </div>
+                        <div class="d-flex gap-3">
+                            <a href="{{ route('admission.campaign') }}" class="modern-btn primary">
+                                <span>Admission Campaign</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                            <a href="https://www.snec.in/admission" target="_blank" class="modern-btn outline">
+                                <span>Apply Now</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="modern-image-wrapper">
+                        <div class="image-glow"></div>
+                        <img src="/images/ok.jpg.jpeg" class="img-fluid rounded-premium shadow-premium"
+                            alt="Admission Campaign">
+                        <div class="experience-badge">
+                            <span class="count">3+</span>
+                            <span class="label">Years of Legacy</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .campaign-badge {
+            display: inline-block;
+            background: linear-gradient(90deg, #63ffd6, #00bcd4);
+            color: #0a1929;
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .modern-title {
+            font-size: 3.2rem;
+            font-weight: 800;
+            line-height: 1.2;
+            color: #fff;
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #63ffd6, #00bcd4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .text-light-blue {
+            color: #cce5ff;
+        }
+
+        .modern-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .modern-feature-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #63ffd6;
+            font-weight: 600;
+        }
+
+        .feature-bullet {
+            width: 32px;
+            height: 32px;
+            background: rgba(99, 255, 214, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .modern-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modern-btn.primary {
+            background: linear-gradient(45deg, #63ffd6, #00bcd4);
+            color: #0a1929;
+            box-shadow: 0 10px 20px rgba(99, 255, 214, 0.3);
+        }
+
+        .modern-btn.primary:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(99, 255, 214, 0.5);
+            color: #0a1929;
+        }
+
+        .modern-btn.outline {
+            background: transparent;
+            color: #fff;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modern-btn.outline:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: #63ffd6;
+            transform: translateY(-5px);
+            color: #63ffd6;
+        }
+
+        .modern-image-wrapper {
+            position: relative;
+            padding: 20px;
+        }
+
+        .image-glow {
+            position: absolute;
+            top: -10%;
+            left: -10%;
+            width: 120%;
+            height: 120%;
+            background: radial-gradient(circle, rgba(99, 255, 214, 0.1) 0%, transparent 70%);
+            z-index: 0;
+        }
+
+        .rounded-premium {
+            border-radius: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .shadow-premium {
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .experience-badge {
+            position: absolute;
+            bottom: -20px;
+            right: 0;
+            background: #fff;
+            color: #0a1929;
+            padding: 20px 30px;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .experience-badge .count {
+            font-size: 1.8rem;
+            font-weight: 800;
+            line-height: 1;
+            color: #00bcd4;
+        }
+
+        .experience-badge .label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 991px) {
+            .modern-title {
+                font-size: 2.5rem;
+            }
+
+            .glass-card {
+                p: 4;
+            }
+        }
+    </style>
+
     <style>
         .about-image .carousel-inner {
             width: 100%;
@@ -485,13 +719,13 @@
                     <p>A comprehensive platform for managing organizations, events, and community engagement.</p>
                     <div class="d-flex gap-3">
                         <a href="https://www.facebook.com/profile.php?id=61550072942049&mibextid=ZbWKwL
-            "><i class="fab fa-facebook-f"></i></a>
+                "><i class="fab fa-facebook-f"></i></a>
                         <a href="https://youtube.com/@snecstudents?si=dVkZFhICOXF8Ct-L
-            "><i class="fab fa-youtube"></i></a>
+                "><i class="fab fa-youtube"></i></a>
                         <a href="https://instagram.com/snecstudents?utm_source=qr&igshid=MzNlNGNkZWQ4Mg%3D%3D
-            "><i class="fab fa-instagram"></i></a>
+                "><i class="fab fa-instagram"></i></a>
                         <a href="https://whatsapp.com/channel/0029VazpkGv5a24D8kBK8y2Z
-            "><i class="fab fa-whatsapp"></i></a>
+                "><i class="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
@@ -563,9 +797,9 @@
                             <h6 class="text-uppercase text-muted fw-bold small">Course Details</h6>
                             <ul class="list-unstyled">
                                 <li><strong>Duration:</strong> 1 Month (Intensive)</li>
-                                <li><strong>Mode:</strong>  Live and recorded Classes</li>
-                                <li><strong>Language:</strong>  Malayalam</li>
-                               
+                                <li><strong>Mode:</strong> Live and recorded Classes</li>
+                                <li><strong>Language:</strong> Malayalam</li>
+
                             </ul>
                         </div>
                     </div>
@@ -607,7 +841,7 @@
                                 <ul class="small text-muted ps-3 mt-1">
                                     <li>Git & GitHub Version Control</li>
                                     <li>Deploying to shared hosting/cloud</li>
-                                   
+
                                 </ul>
                             </div>
                         </div>
