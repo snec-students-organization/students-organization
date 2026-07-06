@@ -239,6 +239,9 @@
 <a href="{{ route('institution.reports.index') }}" class="btn btn-outline-primary text-start py-3">
     <i class="bi bi-folder2-open me-2"></i> View Uploaded Reports
 </a>
+<a href="{{ route('institution.talents-meet.index') }}" class="btn btn-outline-primary text-start py-3">
+    <i class="bi bi-music-note-list me-2"></i> Weekly Talents Meet
+</a>
 
                     </div>
                 </div>

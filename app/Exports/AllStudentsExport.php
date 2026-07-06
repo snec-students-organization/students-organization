@@ -14,15 +14,24 @@ class AllStudentsExport implements FromCollection, WithHeadings
             ->get()
             ->map(function ($student) {
                 return [
-                    'Institution'   => $student->institution->name ?? '—',
-                    'Name'          => $student->name,
-                    'UID'           => $student->uid,
-                    'Class'         => $student->class,
-                    'Stream'        => $student->stream,
-                    'Father Name'   => $student->father_name,
-                    'Address'       => $student->address,
-                    'Contact Number'=> $student->contact_number,
-                    'Status'        => $student->status,
+                    'Institution'      => $student->institution->name ?? '—',
+                    'Name'             => $student->name,
+                    'UID'              => $student->uid,
+                    'Class'            => $student->class,
+                    'Stream'           => $student->stream,
+                    'Father Name'      => $student->father_name ?? '—',
+                    'Address'          => $student->address ?? '—',
+                    'Contact Number'   => $student->contact_number ?? '—',
+                    'WhatsApp Number'  => $student->whatsapp_number ?? '—',
+                    'Country'          => $student->country ?? '—',
+                    'State'            => $student->state ?? '—',
+                    'District'         => $student->district ?? '—',
+                    'Constituency'     => $student->constituency ?? '—',
+                    'Place'            => $student->place ?? '—',
+                    'Date of Birth'    => $student->date_of_birth ? \Carbon\Carbon::parse($student->date_of_birth)->format('Y-m-d') : '—',
+                    'Interested Areas' => !empty($student->interested_areas) ? implode(', ', $student->interested_areas) : '—',
+                    'Photo'            => $student->photo ? asset('storage/' . $student->photo) : '—',
+                    'Status'           => ucfirst($student->status),
                 ];
             });
     }
@@ -38,6 +47,15 @@ class AllStudentsExport implements FromCollection, WithHeadings
             'Father Name',
             'Address',
             'Contact Number',
+            'WhatsApp Number',
+            'Country',
+            'State',
+            'District',
+            'Constituency',
+            'Place',
+            'Date of Birth',
+            'Interested Areas',
+            'Photo URL',
             'Status',
         ];
     }

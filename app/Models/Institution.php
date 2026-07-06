@@ -40,10 +40,14 @@ class Institution extends Authenticatable
         return $this->hasMany(Payment::class, 'institution_name', 'name');
     }
     public function institutionData()
-{
-    return $this->hasOne(InstitutionData::class);
-}
+    {
+        return $this->hasOne(InstitutionData::class);
+    }
 
+    public function weeklyTalentsMeets()
+    {
+        return $this->hasMany(WeeklyTalentsMeet::class);
+    }
 }
 
 

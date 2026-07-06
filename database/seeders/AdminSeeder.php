@@ -19,5 +19,25 @@ class AdminSeeder extends Seeder
                 'role' => 'admin',
             ]
         );
+
+        User::firstOrCreate(
+            ['email' => 'boys@gmail.com'],
+            [
+                'uid' => 'boysadmin',
+                'name' => 'Boys Admin',
+                'password' => Hash::make('boysPass2026!'),
+                'role' => 'boys_admin',
+            ]
+        );
+
+        User::firstOrCreate(
+            ['email' => 'girls@gmail.com'],
+            [
+                'uid' => 'girlsadmin',
+                'name' => 'Girls Admin',
+                'password' => Hash::make('girlsPass2026!'),
+                'role' => 'girls_admin',
+            ]
+        );
     }
 }

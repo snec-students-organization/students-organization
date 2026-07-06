@@ -43,17 +43,12 @@ public function admissionCampaign()
             'uid_no' => 'required|string|max:50',
             'college_name' => 'required|string|max:255',
             'contact_number' => 'required|string|max:20',
-            'application_number' => 'required|string|max:100',
+            'application_number' => 'required|string|max:100|unique:admission_data,application_number',
+        ], [
+            'application_number.unique' => 'This application number has already been submitted.',
         ]);
 
-        $previousSubmissionsCount = \App\Models\AdmissionData::where('uid_no', $validated['uid_no'])->count();
-        $isSpecial = ($previousSubmissionsCount + 1) % 5 === 0;
-
-        if ($isSpecial) {
-            $validated['scratch_card_amount'] = rand(20, 30);
-        } else {
-            $validated['scratch_card_amount'] = rand(7, 13);
-        }
+        $validated['scratch_card_amount'] = rand(10, 30);
 
         $admission = \App\Models\AdmissionData::create($validated);
 

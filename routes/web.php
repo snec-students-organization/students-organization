@@ -17,6 +17,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\UpcomingEventController;
 use App\Http\Controllers\InstitutionAuthController;
 use App\Http\Controllers\InstitutionDashboardController;
+use App\Http\Controllers\WeeklyTalentsMeetController;
 use App\Http\Controllers\InstitutionController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\Admin\PaymentSettingController;
@@ -274,14 +275,19 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::post('/online-course/quizzes', [App\Http\Controllers\Admin\QuizController::class, 'store'])->name('quizzes.store');
     Route::delete('/online-course/quizzes/{quiz}', [App\Http\Controllers\Admin\QuizController::class, 'destroy'])->name('quizzes.destroy');
 
+    Route::get('/boys-dashboard', [AdminController::class, 'boysDashboard'])->name('boys.dashboard');
+    Route::get('/girls-dashboard', [AdminController::class, 'girlsDashboard'])->name('girls.dashboard');
 
+    // Talents Meet Notifications
+    Route::post('/talents-meet-notifications', [App\Http\Controllers\Admin\TalentsMeetNotificationController::class, 'store'])->name('talents-meet-notifications.store');
+    Route::delete('/talents-meet-notifications/{notification}', [App\Http\Controllers\Admin\TalentsMeetNotificationController::class, 'destroy'])->name('talents-meet-notifications.destroy');
 });
 
 Route::get('admin/students-by-institution', [AdminController::class, 'studentsByInstitution'])
     ->name('admin.students.byInstitution')
     ->middleware(['auth', 'admin']);
 
-Route::get('/admin/institutions/{id}/export-students', [App\Http\Controllers\Admin\StudentController::class, 'exportInstitutionStudents'])
+Route::get('/admin/institutions/{id}/export-students', [App\Http\Controllers\Admin\StudentExportController::class, 'exportInstitutionStudents'])
     ->name('admin.institutions.exportStudents');
 
 
@@ -319,6 +325,9 @@ Route::middleware('auth:institution')->prefix('institution')->name('institution.
 
     // List uploaded reports
     Route::get('/reports', [MonthlyReportController::class, 'index'])->name('reports.index');
+
+    // Weekly Talents Meet
+    Route::resource('talents-meet', WeeklyTalentsMeetController::class);
 });
 
 // Admin routes

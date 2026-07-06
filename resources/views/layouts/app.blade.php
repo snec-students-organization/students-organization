@@ -607,6 +607,18 @@
 
 
 
+                        @elseif(Auth::user()->role === 'boys_admin')
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('admin.boys.dashboard') ? 'active fw-bold' : '' }}" href="{{ route('admin.boys.dashboard') }}">
+                                    <i class="bi bi-speedometer2 me-2"></i> Boys Dashboard
+                                </a>
+                            </li>
+                        @elseif(Auth::user()->role === 'girls_admin')
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('admin.girls.dashboard') ? 'active fw-bold' : '' }}" href="{{ route('admin.girls.dashboard') }}">
+                                    <i class="bi bi-speedometer2 me-2"></i> Girls Dashboard
+                                </a>
+                            </li>
                         @elseif(Auth::user()->role === 'user')
                             <li class="nav-item">
                                 <a class="nav-link {{ request()->is('user/dashboard') ? 'active fw-bold' : '' }}" href="{{ route('user.dashboard') }}">
@@ -752,9 +764,17 @@
                 </div>
                 <div class="dropdown-divider"></div>
 
-                @if(Auth::user()->role === 'admin')
+                 @if(Auth::user()->role === 'admin')
                     <a class="dropdown-item" href="{{ route('admin.dashboard') }}">
                         <i class="bi bi-speedometer2 me-2"></i> Admin Dashboard
+                    </a>
+                @elseif(Auth::user()->role === 'boys_admin')
+                    <a class="dropdown-item" href="{{ route('admin.boys.dashboard') }}">
+                        <i class="bi bi-speedometer2 me-2"></i> Boys Dashboard
+                    </a>
+                @elseif(Auth::user()->role === 'girls_admin')
+                    <a class="dropdown-item" href="{{ route('admin.girls.dashboard') }}">
+                        <i class="bi bi-speedometer2 me-2"></i> Girls Dashboard
                     </a>
                 @else
                     <a class="dropdown-item" href="{{ route('user.dashboard') }}">

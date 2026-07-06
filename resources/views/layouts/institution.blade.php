@@ -197,6 +197,9 @@
                 <a href="{{ route('payments.institution.create') }}" class="list-group-item list-group-item-action">
                     <i class="bi bi-credit-card"></i> Payments
                 </a>
+                <a href="{{ route('institution.talents-meet.index') }}" class="list-group-item list-group-item-action {{ request()->routeIs('institution.talents-meet.*') ? 'active' : '' }}">
+                    <i class="bi bi-music-note-list"></i> Weekly Talents Meet
+                </a>
                 <form action="{{ route('institution.logout') }}" method="POST" class="m-0">
                     @csrf
                     <button type="submit" class="list-group-item list-group-item-action w-100 text-start">

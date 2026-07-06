@@ -18,7 +18,20 @@ class Student extends Model
         'father_name',
         'address',
         'contact_number',
+        'whatsapp_number',
+        'country',
+        'state',
+        'district',
+        'constituency',
+        'place',
+        'date_of_birth',
+        'photo',
+        'interested_areas',
         'status',
+    ];
+
+    protected $casts = [
+        'interested_areas' => 'array',
     ];
 
     public function institution()
