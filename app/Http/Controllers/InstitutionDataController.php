@@ -50,7 +50,6 @@ class InstitutionDataController extends Controller
 
         $institution = Auth::guard('institution')->user();
 
-        // ✅ Save/update institution data without membership_number
         $institution->institutionData()->updateOrCreate(
             [], // no extra condition needed since it's already tied to this institution
             $request->only([
@@ -72,6 +71,20 @@ class InstitutionDataController extends Controller
                 'councilers_name_contact'
             ])
         );
+
+        $affiliationNumber = $request->input('affiliation_number');
+        if ($affiliationNumber) {
+            $students = $institution->students()->whereNotNull('membership_number')->get();
+            foreach ($students as $student) {
+                $rawNumber = $student->getRawOriginal('membership_number');
+                $parts = explode('/', $rawNumber);
+                if (count($parts) === 4) {
+                    $parts[2] = $affiliationNumber;
+                    $student->membership_number = implode('/', $parts);
+                    $student->save();
+                }
+            }
+        }
 
         return redirect()->route('institution.dashboard')->with('success', 'Institution data submitted successfully.');
     }

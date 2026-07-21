@@ -24,8 +24,6 @@
                         <thead class="table-light">
                             <tr>
                                 <th scope="col">Name</th>
-                                <th scope="col">Father's Name</th>
-                                <th scope="col">Address</th>
                                 <th scope="col">Contact Number</th>
                                 <th scope="col">UID</th>
                                 <th scope="col">Status</th>
@@ -36,8 +34,6 @@
                             @foreach($classStudents as $student)
                                 <tr>
                                     <td>{{ $student->name }}</td>
-                                    <td>{{ $student->father_name }}</td>
-                                    <td>{{ $student->address }}</td>
                                     <td>{{ $student->contact_number }}</td>
                                     <td>{{ $student->uid }}</td>
                                     <td>

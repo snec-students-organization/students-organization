@@ -7,28 +7,13 @@ use App\Models\Organization;
 
 class InstitutionOrganizationController extends Controller
 {
-    // Centralized streams list
-    private $streams = [
-        'sharia',
-        'sharia plus',
-        'life',
-        'life plus',
-        'life for girls',
-        'life plus for girls',
-        'bayyinath',
-        'she',
-        'she plus',
-    ];
-
     // Show form to add or edit organization. Load existing if found.
     public function showOrganizationFormForInstitution()
     {
         $institution = auth()->guard('institution')->user();
         $organization = Organization::where('institution_id', $institution->id)->first();
 
-        $streams = $this->streams;
-
-        return view('institution.organization.form', compact('organization', 'streams'));
+        return view('institution.organization.form', compact('organization'));
     }
 
     // Save or update on form submission (for create or edit)
@@ -37,17 +22,11 @@ class InstitutionOrganizationController extends Controller
         $institution = auth()->guard('institution')->user();
 
         $data = $request->validate([
-            'college_name' => 'required|string|max:255',
-            'organization_name' => 'required|string|max:255',
-            'organization_director_name' => 'nullable|string|max:255',
-            'organization_director_number' => 'nullable|string|max:255',
-            'counciler_name' => 'nullable|string|max:255',
-            'counciler_number' => 'nullable|string|max:255',
-            'chairman_name' => 'nullable|string|max:255',
-            'chairman_number' => 'nullable|string|max:255',
-            'convenor_name' => 'nullable|string|max:255',
-            'convenor_number' => 'nullable|string|max:255',
-            'stream' => 'required|string|in:' . implode(',', $this->streams),
+            'college_name'       => 'required|string|max:255',
+            'affiliation_number' => 'required|string|max:255',
+            'organization_name'  => 'required|string|max:255',
+            'contact_number'     => 'required|string|max:20',
+            'email'              => 'required|email|max:255',
         ]);
 
         $data['institution_id'] = $institution->id;
@@ -56,6 +35,20 @@ class InstitutionOrganizationController extends Controller
             ['institution_id' => $institution->id],
             $data
         );
+
+        $affiliationNumber = $request->input('affiliation_number');
+        if ($affiliationNumber) {
+            $students = $institution->students()->whereNotNull('membership_number')->get();
+            foreach ($students as $student) {
+                $rawNumber = $student->getRawOriginal('membership_number');
+                $parts = explode('/', $rawNumber);
+                if (count($parts) === 4) {
+                    $parts[2] = $affiliationNumber;
+                    $student->membership_number = implode('/', $parts);
+                    $student->save();
+                }
+            }
+        }
 
         return redirect()
             ->route('institution.organization.form')

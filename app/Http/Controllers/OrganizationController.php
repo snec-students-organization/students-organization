@@ -9,18 +9,6 @@ use App\Models\Institution;
 
 class OrganizationController extends Controller
 {
-    // ✅ Centralized list of streams
-    private $streams = [
-        'sharia',
-        'sharia plus',
-        'life',
-        'life plus',
-        'life for girls',
-        'life plus for girls',
-        'bayyinath',
-        'she',
-        'she plus',
-    ];
 
     // Centralized method to log activity
     private function logActivity(string $description)
@@ -31,43 +19,30 @@ class OrganizationController extends Controller
         ]);
     }
 
-    // Display a listing of organizations with optional stream filtering (admin page)
+    // Display a listing of organizations (admin page)
     public function index(Request $request)
     {
-        $streams = $this->streams;
-        $selectedStream = $request->input('stream');
+        $organizations = Organization::paginate(15);
 
-        $organizations = Organization::when($selectedStream, function ($query, $stream) {
-            return $query->where('stream', $stream);
-        })->paginate(15);
-
-        return view('organizations.index', compact('organizations', 'streams', 'selectedStream'));
+        return view('organizations.index', compact('organizations'));
     }
 
     // Show the form for creating a new organization
     public function create()
     {
-        $streams = $this->streams;
         $institutions = Institution::all();
 
-        return view('organizations.create', compact('streams', 'institutions'));
+        return view('organizations.create', compact('institutions'));
     }
 
-    // Store a newly created organization
     public function store(Request $request)
     {
         $request->validate([
-            'institution_id' => 'required|exists:institutions,id',
-            'organization_name' => 'required|string|max:255',
-            'organization_director_name' => 'required|string|max:255',
-            'organization_director_number' => 'required|string|max:15',
-            'counciler_name' => 'required|string|max:255',
-            'counciler_number' => 'required|string|max:15',
-            'chairman_name' => 'required|string|max:255',
-            'chairman_number' => 'required|string|max:15',
-            'convenor_name' => 'required|string|max:255',
-            'convenor_number' => 'required|string|max:15',
-            'stream' => 'required|string|in:' . implode(',', $this->streams),
+            'institution_id'     => 'required|exists:institutions,id',
+            'affiliation_number' => 'required|string|max:255',
+            'organization_name'  => 'required|string|max:255',
+            'contact_number'     => 'required|string|max:20',
+            'email'              => 'required|email|max:255',
         ]);
 
         $institution = Institution::findOrFail($request->institution_id);
@@ -85,36 +60,58 @@ class OrganizationController extends Controller
         $organization = Organization::create($data);
         $this->logActivity('Created organization: ' . $organization->organization_name);
 
+        $affiliationNumber = $request->input('affiliation_number');
+        if ($affiliationNumber && $institution) {
+            $students = $institution->students()->whereNotNull('membership_number')->get();
+            foreach ($students as $student) {
+                $rawNumber = $student->getRawOriginal('membership_number');
+                $parts = explode('/', $rawNumber);
+                if (count($parts) === 4) {
+                    $parts[2] = $affiliationNumber;
+                    $student->membership_number = implode('/', $parts);
+                    $student->save();
+                }
+            }
+        }
+
         return redirect()->route('organizations.index')->with('success', 'Organization added successfully');
     }
 
     // Show the form for editing the specified organization
     public function edit(Organization $organization)
     {
-        $streams = $this->streams;
         $institutions = Institution::all();
 
-        return view('organizations.edit', compact('organization', 'streams', 'institutions'));
+        return view('organizations.edit', compact('organization', 'institutions'));
     }
 
     // Update the specified organization
     public function update(Request $request, Organization $organization)
     {
         $request->validate([
-            'organization_name' => 'required|string|max:255',
-            'organization_director_name' => 'required|string|max:255',
-            'organization_director_number' => 'required|string|max:15',
-            'counciler_name' => 'required|string|max:255',
-            'counciler_number' => 'required|string|max:15',
-            'chairman_name' => 'required|string|max:255',
-            'chairman_number' => 'required|string|max:15',
-            'convenor_name' => 'required|string|max:255',
-            'convenor_number' => 'required|string|max:15',
-            'stream' => 'required|string|in:' . implode(',', $this->streams),
+            'affiliation_number' => 'required|string|max:255',
+            'organization_name'  => 'required|string|max:255',
+            'contact_number'     => 'required|string|max:20',
+            'email'              => 'required|email|max:255',
         ]);
 
         $organization->update($request->all());
         $this->logActivity('Updated organization: ' . $organization->organization_name);
+
+        $affiliationNumber = $request->input('affiliation_number');
+        $institution = Institution::find($organization->institution_id);
+        if ($affiliationNumber && $institution) {
+            $students = $institution->students()->whereNotNull('membership_number')->get();
+            foreach ($students as $student) {
+                $rawNumber = $student->getRawOriginal('membership_number');
+                $parts = explode('/', $rawNumber);
+                if (count($parts) === 4) {
+                    $parts[2] = $affiliationNumber;
+                    $student->membership_number = implode('/', $parts);
+                    $student->save();
+                }
+            }
+        }
 
         return redirect()->route('organizations.index')->with('success', 'Organization updated successfully');
     }

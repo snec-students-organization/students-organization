@@ -4,6 +4,106 @@
         <small>{{ $institution->email }}</small>
     </div>
     <div class="card-body">
+        {{-- 🏢 Organization Details --}}
+        @php
+            $org = $institution->organization;
+            $instData = $institution->institutionData;
+        @endphp
+
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="p-3 bg-light rounded border border-light-subtle shadow-sm">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h6 class="text-primary mb-0 fw-bold">
+                            <i class="bi bi-building me-1"></i> Organization Details
+                        </h6>
+                        <div>
+                            @if($org)
+                                <span class="badge bg-success me-1">Organization Details Saved</span>
+                            @else
+                                <span class="badge bg-secondary me-1">No Organization Details</span>
+                            @endif
+                            
+                            @if($instData)
+                                <span class="badge bg-info text-dark">Organization Data Saved</span>
+                            @else
+                                <span class="badge bg-secondary">No Organization Data</span>
+                            @endif
+                        </div>
+                    </div>
+
+                    @if($org || $instData)
+                        <div class="row g-3">
+                            {{-- Standard Organization --}}
+                            @if($org)
+                                <div class="col-md-6">
+                                    <div class="card h-100 border-0 bg-white shadow-sm p-3">
+                                        <h6 class="fw-bold text-dark border-bottom pb-2 mb-2">
+                                            <i class="bi bi-shield-check text-success me-1"></i> Students' Organization
+                                        </h6>
+                                        <div class="row g-2 small">
+                                            <div class="col-6">
+                                                <span class="text-muted d-block" style="font-size: 0.75rem;">Organization Name</span>
+                                                <span class="fw-semibold text-dark">{{ $org->organization_name }}</span>
+                                            </div>
+                                            <div class="col-6">
+                                                <span class="text-muted d-block" style="font-size: 0.75rem;">Affiliation No</span>
+                                                <span class="fw-semibold text-dark">{{ $org->affiliation_number }}</span>
+                                            </div>
+                                            <div class="col-6">
+                                                <span class="text-muted d-block" style="font-size: 0.75rem;">Contact Number</span>
+                                                <span class="fw-semibold text-dark">{{ $org->contact_number }}</span>
+                                            </div>
+                                            <div class="col-6">
+                                                <span class="text-muted d-block" style="font-size: 0.75rem;">Mail ID</span>
+                                                <span class="fw-semibold text-dark">{{ $org->email }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+
+                            {{-- Data Collection (Institution Data) --}}
+                            @if($instData)
+                                <div class="col-md-6">
+                                    <div class="card h-100 border-0 bg-white shadow-sm p-3">
+                                        <h6 class="fw-bold text-dark border-bottom pb-2 mb-2">
+                                            <i class="bi bi-collection text-info me-1"></i> Data Collection Details
+                                        </h6>
+                                        <div class="row g-2 small">
+                                            <div class="col-12">
+                                                <span class="text-muted d-block" style="font-size: 0.75rem;">Org Full Name</span>
+                                                <span class="fw-semibold text-dark">{{ $instData->college_organization_full_name }} ({{ $instData->college_organization_short_name }})</span>
+                                            </div>
+                                            <div class="col-4">
+                                                <span class="text-muted d-block" style="font-size: 0.75rem;">Chairman</span>
+                                                <span class="fw-semibold text-dark">{{ $instData->chairman_name }}</span>
+                                                <span class="text-muted d-block" style="font-size: 0.7rem;">{{ $instData->chairman_contact }}</span>
+                                            </div>
+                                            <div class="col-4">
+                                                <span class="text-muted d-block" style="font-size: 0.75rem;">Convener</span>
+                                                <span class="fw-semibold text-dark">{{ $instData->convener_name }}</span>
+                                                <span class="text-muted d-block" style="font-size: 0.7rem;">{{ $instData->convener_contact }}</span>
+                                            </div>
+                                            <div class="col-4">
+                                                <span class="text-muted d-block" style="font-size: 0.75rem;">Treasurer</span>
+                                                <span class="fw-semibold text-dark">{{ $instData->treasurer_name }}</span>
+                                                <span class="text-muted d-block" style="font-size: 0.7rem;">{{ $instData->treasurer_contact }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+                    @else
+                        <p class="text-muted small mb-0 p-2 text-center bg-white rounded border border-dashed">
+                            No organization details or data collection info submitted yet.
+                        </p>
+                    @endif
+                </div>
+            </div>
+        </div>
+
         @if($institution->students->isEmpty())
             <p class="text-muted">No students added yet.</p>
         @else
@@ -119,10 +219,6 @@
                                                                 </strong>
                                                             </div>
                                                             <div class="col-sm-6">
-                                                                <small class="text-muted d-block">Father's Name</small>
-                                                                <strong class="text-dark">{{ $student->father_name ?? '—' }}</strong>
-                                                            </div>
-                                                            <div class="col-sm-6">
                                                                 <small class="text-muted d-block">Place</small>
                                                                 <strong class="text-dark">{{ $student->place ?? '—' }}</strong>
                                                             </div>
@@ -141,10 +237,6 @@
                                                             <div class="col-sm-3">
                                                                 <small class="text-muted d-block">Country</small>
                                                                 <strong class="text-dark">{{ $student->country ?? '—' }}</strong>
-                                                            </div>
-                                                            <div class="col-12">
-                                                                <small class="text-muted d-block">Address</small>
-                                                                <strong class="text-dark">{{ $student->address ?? '—' }}</strong>
                                                             </div>
                                                             <div class="col-12">
                                                                 <small class="text-muted d-block mb-1"><i class="bi bi-stars text-warning me-1"></i> Interested Areas</small>

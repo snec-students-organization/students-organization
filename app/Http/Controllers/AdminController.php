@@ -69,11 +69,22 @@ class AdminController extends Controller
 
         // If status is being set to verified, assign membership number if not already
         if ($request->status === 'verified' && !$student->membership_number) {
-            do {
-                $random = 'SSO' . rand(10000, 99999);
-            } while (Student::where('membership_number', $random)->exists());
+            $institution = $student->institution;
+            $organization = $institution?->organization;
+            $institutionData = $institution?->institutionData;
+            
+            $affiliationNumber = null;
+            if ($organization && $organization->affiliation_number) {
+                $affiliationNumber = $organization->affiliation_number;
+            } elseif ($institutionData && $institutionData->affiliation_number) {
+                $affiliationNumber = $institutionData->affiliation_number;
+            } else {
+                $affiliationNumber = $institution?->affiliation_number ?? 'NA';
+            }
+            
+            $class = $student->class ?? 'NA';
 
-            $student->membership_number = $random;
+            $student->membership_number = $student->uid . '/' . $class . '/' . $affiliationNumber . '/2026-27';
         }
 
         $student->status = $request->status;
@@ -96,7 +107,7 @@ class AdminController extends Controller
             $query->where('stream', $stream);
         }
 
-        $query->with('students');
+        $query->with(['students', 'organization', 'institutionData']);
 
         $institutions = $query->get();
         $streams = ['sharia', 'sharia plus', 'she', 'she plus', 'life', 'life plus', 'bayyinath', 'life for girls', 'life plus for girls'];
@@ -111,9 +122,9 @@ class AdminController extends Controller
     {
         $search = $request->input('search');
 
-        $shariaQuery = Institution::where('stream', 'sharia')->with('students');
-        $shariaPlusQuery = Institution::where('stream', 'sharia plus')->with('students');
-        $bayyinathQuery = Institution::where('stream', 'bayyinath')->with('students');
+        $shariaQuery = Institution::where('stream', 'sharia')->with(['students', 'organization', 'institutionData']);
+        $shariaPlusQuery = Institution::where('stream', 'sharia plus')->with(['students', 'organization', 'institutionData']);
+        $bayyinathQuery = Institution::where('stream', 'bayyinath')->with(['students', 'organization', 'institutionData']);
 
         if ($search) {
             $shariaQuery->where('name', 'like', '%' . $search . '%');
@@ -125,6 +136,16 @@ class AdminController extends Controller
         $shariaPlusInstitutions = $shariaPlusQuery->get();
         $bayyinathInstitutions = $bayyinathQuery->get();
 
+        $allInstitutions = $shariaInstitutions->concat($shariaPlusInstitutions)->concat($bayyinathInstitutions);
+
+        $stats = [
+            'total_colleges'   => $allInstitutions->count(),
+            'total_students'   => $allInstitutions->sum(fn($i) => $i->students->count()),
+            'verified_students'=> $allInstitutions->sum(fn($i) => $i->students->where('status', 'verified')->count()),
+            'orgs_submitted'   => $allInstitutions->filter(fn($i) => $i->organization)->count(),
+            'data_submitted'   => $allInstitutions->filter(fn($i) => $i->institutionData)->count(),
+        ];
+
         $notifications = \App\Models\TalentsMeetNotification::where('sender_role', 'boys_admin')
             ->latest()
             ->get();
@@ -133,6 +154,8 @@ class AdminController extends Controller
             'shariaInstitutions',
             'shariaPlusInstitutions',
             'bayyinathInstitutions',
+            'allInstitutions',
+            'stats',
             'notifications'
         ));
     }
@@ -144,8 +167,8 @@ class AdminController extends Controller
     {
         $search = $request->input('search');
 
-        $sheQuery = Institution::where('stream', 'she')->with('students');
-        $shePlusQuery = Institution::where('stream', 'she plus')->with('students');
+        $sheQuery = Institution::where('stream', 'she')->with(['students', 'organization', 'institutionData']);
+        $shePlusQuery = Institution::where('stream', 'she plus')->with(['students', 'organization', 'institutionData']);
 
         if ($search) {
             $sheQuery->where('name', 'like', '%' . $search . '%');
@@ -155,6 +178,16 @@ class AdminController extends Controller
         $sheInstitutions = $sheQuery->get();
         $shePlusInstitutions = $shePlusQuery->get();
 
+        $allInstitutions = $sheInstitutions->concat($shePlusInstitutions);
+
+        $stats = [
+            'total_colleges'   => $allInstitutions->count(),
+            'total_students'   => $allInstitutions->sum(fn($i) => $i->students->count()),
+            'verified_students'=> $allInstitutions->sum(fn($i) => $i->students->where('status', 'verified')->count()),
+            'orgs_submitted'   => $allInstitutions->filter(fn($i) => $i->organization)->count(),
+            'data_submitted'   => $allInstitutions->filter(fn($i) => $i->institutionData)->count(),
+        ];
+
         $notifications = \App\Models\TalentsMeetNotification::where('sender_role', 'girls_admin')
             ->latest()
             ->get();
@@ -162,6 +195,8 @@ class AdminController extends Controller
         return view('admin.students.girls_dashboard', compact(
             'sheInstitutions',
             'shePlusInstitutions',
+            'allInstitutions',
+            'stats',
             'notifications'
         ));
     }

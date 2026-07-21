@@ -23,34 +23,16 @@
                 </div>
             @endif
 
-            <!-- Stream Filter -->
-            <form method="GET" action="{{ route('organizations.index') }}" class="row g-2 align-items-center mb-3">
-                <div class="col-auto">
-                    <label for="stream" class="col-form-label fw-semibold">Filter by Stream:</label>
-                </div>
-                <div class="col-auto">
-                    <select name="stream" id="stream" onchange="this.form.submit()" class="form-select">
-                        <option value="">All Streams</option>
-                        @foreach ($streams as $stream)
-                            <option value="{{ $stream }}" @if ($selectedStream == $stream) selected @endif>
-                                {{ ucfirst($stream) }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-            </form>
-
             <!-- Table -->
             <div class="table-responsive">
                 <table class="table table-bordered table-hover align-middle">
                     <thead class="table-light">
                         <tr>
                             <th>College Name</th>
+                            <th>Affiliation Number</th>
                             <th>Organization Name</th>
-                            <th>Director</th>
-                            <th>Counciler</th>
-                            <th>Chairman</th>
-                            <th>Convenor</th>
+                            <th>Contact Number</th>
+                            <th>Mail ID</th>
                             @if(auth()->user() && auth()->user()->role === 'admin')
                                 <th class="text-center">Actions</th>
                             @endif
@@ -60,6 +42,7 @@
                         @forelse($organizations as $organization)
                             <tr>
                                 <td class="fw-semibold">{{ $organization->college_name }}</td>
+                                <td>{{ $organization->affiliation_number }}</td>
                                 
                                 <!-- Organization Name + Verify Section -->
                                 <td>
@@ -86,37 +69,11 @@
                                     </div>
                                 </td>
 
-                                <!-- Director -->
-                                <td>
-                                    {{ $organization->organization_director_name }}
-                                    @if(auth()->user() && auth()->user()->role === 'admin')
-                                        <br><small class="text-muted">📞 {{ $organization->organization_director_number }}</small>
-                                    @endif
-                                </td>
+                                <!-- Contact Number -->
+                                <td>{{ $organization->contact_number }}</td>
 
-                                <!-- Counciler -->
-                                <td>
-                                    {{ $organization->counciler_name }}
-                                    @if(auth()->user() && auth()->user()->role === 'admin')
-                                        <br><small class="text-muted">📞 {{ $organization->counciler_number }}</small>
-                                    @endif
-                                </td>
-
-                                <!-- Chairman -->
-                                <td>
-                                    {{ $organization->chairman_name }}
-                                    @if(auth()->user() && auth()->user()->role === 'admin')
-                                        <br><small class="text-muted">📞 {{ $organization->chairman_number }}</small>
-                                    @endif
-                                </td>
-
-                                <!-- Convenor -->
-                                <td>
-                                    {{ $organization->convenor_name }}
-                                    @if(auth()->user() && auth()->user()->role === 'admin')
-                                        <br><small class="text-muted">📞 {{ $organization->convenor_number }}</small>
-                                    @endif
-                                </td>
+                                <!-- Mail ID -->
+                                <td>{{ $organization->email }}</td>
 
                                 @if(auth()->user() && auth()->user()->role === 'admin')
                                     <td>
@@ -139,7 +96,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="{{ auth()->user() && auth()->user()->role === 'admin' ? '7' : '6' }}" 
+                                <td colspan="{{ auth()->user() && auth()->user()->role === 'admin' ? '6' : '5' }}" 
                                     class="text-center py-4 text-muted">
                                     No organizations found.
                                 </td>

@@ -80,7 +80,7 @@
                                     class="form-select @error('stream') is-invalid @enderror" required>
                                 <option value="">-- Select Stream --</option>
                                 @foreach(['sharia','sharia plus','she','she plus','life','life plus','bayyinath','life for girls','life plus for girls'] as $stream)
-                                    <option value="{{ $stream }}" {{ old('stream', auth()->user()->stream) == $stream ? 'selected' : '' }}>{{ ucfirst($stream) }}</option>
+                                    <option value="{{ $stream }}" {{ old('stream') == $stream ? 'selected' : '' }}>{{ ucfirst($stream) }}</option>
                                 @endforeach
                             </select>
                             @error('stream') <div class="invalid-feedback">{{ $message }}</div> @enderror
@@ -159,10 +159,21 @@
                         </div>
 
                         {{-- Photo --}}
+                        @php
+                            $isBoysCollege = in_array(auth()->user()->stream, ['sharia', 'sharia plus', 'bayyinath']);
+                        @endphp
                         <div class="col-md-12">
-                            <label for="photo" class="form-label fw-semibold text-dark">Student Photo <span class="text-muted fw-normal">(Optional)</span></label>
+                            <label for="photo" class="form-label fw-semibold text-dark">
+                                Student Photo 
+                                @if($isBoysCollege)
+                                    <span class="text-danger fw-normal">(Required)</span>
+                                @else
+                                    <span class="text-muted fw-normal">(Optional)</span>
+                                @endif
+                            </label>
                             <input type="file" name="photo" id="photo" accept="image/*"
-                                   class="form-control @error('photo') is-invalid @enderror">
+                                   class="form-control @error('photo') is-invalid @enderror"
+                                   {{ $isBoysCollege ? 'required' : '' }}>
                             @error('photo') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
 
@@ -175,23 +186,19 @@
                             @error('interested_areas') <div class="text-danger small mb-2">{{ $message }}</div> @enderror
                             @php
                                 $areaOptions = [
-                                    'Speech', 'Motivation Classes', 'Training', 'Fiction Writing',
+                                    'Speech', 'Motivation Classes ', 'Training', 'Fiction Writing',
                                     'Non-Fiction Writing', 'Research', 'Journalism',
                                     'Photography & Videography', 'Graphic Designing', 'Video Editing',
                                     'Content & Script Writing', 'English Language', 'Arabic Language',
-                                    'Urdu Language', 'Other Languages', 'Art', 'Singing',
-                                    'Field Work', 'Information Technology', 'Others',
+                                    'Urdu Language', 'Other Languages', 'Art','Singing','Field Work','Information Technology','Others'
                                 ];
                                 $oldAreas = old('interested_areas', []);
-                                $oldLangText   = old('other_languages_text', '');
-                                $oldOthersText = old('others_text', '');
                             @endphp
                             <div class="row g-2 mt-1">
                                 @foreach($areaOptions as $area)
                                     <div class="col-md-4 col-sm-6">
-                                        <label class="area-chip d-flex align-items-center gap-2 px-3 py-2 rounded-3 border {{ in_array($area, $oldAreas) ? 'selected' : '' }}"
-                                               style="cursor:pointer; transition: all 0.2s;"
-                                               data-area="{{ $area }}">
+                                        <label class="area-chip d-flex align-items-center gap-2 px-3 py-2 rounded-3 border cursor-pointer {{ in_array($area, $oldAreas) ? 'selected' : '' }}"
+                                               style="cursor:pointer; transition: all 0.2s;">
                                             <input type="checkbox" name="interested_areas[]" value="{{ $area }}"
                                                    class="area-checkbox d-none"
                                                    {{ in_array($area, $oldAreas) ? 'checked' : '' }}>
@@ -200,28 +207,6 @@
                                         </label>
                                     </div>
                                 @endforeach
-                            </div>
-
-                            {{-- Extra text for "Other Languages" --}}
-                            <div id="other_languages_extra" class="mt-3 {{ in_array('Other Languages', $oldAreas) ? '' : 'd-none' }}">
-                                <label for="other_languages_text" class="form-label small fw-semibold text-primary">
-                                    <i class="bi bi-translate me-1"></i> Please specify the language(s):
-                                </label>
-                                <input type="text" name="other_languages_text" id="other_languages_text"
-                                       class="form-control"
-                                       placeholder="e.g. French, German, Malayalam…"
-                                       value="{{ $oldLangText }}">
-                            </div>
-
-                            {{-- Extra text for "Others" --}}
-                            <div id="others_extra" class="mt-3 {{ in_array('Others', $oldAreas) ? '' : 'd-none' }}">
-                                <label for="others_text" class="form-label small fw-semibold text-primary">
-                                    <i class="bi bi-pencil me-1"></i> Please specify your interest:
-                                </label>
-                                <input type="text" name="others_text" id="others_text"
-                                       class="form-control"
-                                       placeholder="e.g. Cooking, Robotics…"
-                                       value="{{ $oldOthersText }}">
                             </div>
                         </div>
 
@@ -249,22 +234,7 @@ document.querySelectorAll('.area-chip').forEach(function(chip) {
         var checkbox = chip.querySelector('.area-checkbox');
         checkbox.checked = !checkbox.checked;
         chip.classList.toggle('selected', checkbox.checked);
-
-        var area = chip.getAttribute('data-area');
-
-        if (area === 'Other Languages') {
-            var el = document.getElementById('other_languages_extra');
-            el.classList.toggle('d-none', !checkbox.checked);
-            if (!checkbox.checked) document.getElementById('other_languages_text').value = '';
-        }
-
-        if (area === 'Others') {
-            var el = document.getElementById('others_extra');
-            el.classList.toggle('d-none', !checkbox.checked);
-            if (!checkbox.checked) document.getElementById('others_text').value = '';
-        }
     });
 });
 </script>
 @endpush
-

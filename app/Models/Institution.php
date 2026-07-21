@@ -14,6 +14,7 @@ class Institution extends Authenticatable
         'short_name',
         'stream',
         'affiliation_number',
+        'membership_number',
         'place',
         'address',
         'organization_name',

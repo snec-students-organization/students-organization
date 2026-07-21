@@ -24,139 +24,71 @@
 
                 {{-- College Name --}}
                 <div class="col-md-6">
-                    <label class="form-label fw-semibold">College Name</label>
+                    <label class="form-label fw-semibold">Name of Institution <span class="text-danger">*</span></label>
                     <input type="text" 
                            name="college_name" 
-                           value="{{ old('college_name', $organization->college_name ?? '') }}" 
-                           class="form-control @error('college_name') is-invalid @enderror">
+                           value="{{ old('college_name', $organization->college_name ?? auth('institution')->user()->name) }}" 
+                           class="form-control @error('college_name') is-invalid @enderror"
+                           placeholder="Enter College Name" required>
                     @error('college_name') 
+                        <div class="invalid-feedback">{{ $message }}</div> 
+                    @enderror
+                </div>
+
+                {{-- Affiliation Number --}}
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Affiliation Number <span class="text-danger">*</span></label>
+                    <input type="text" 
+                           name="affiliation_number" 
+                           value="{{ old('affiliation_number', $organization->affiliation_number ?? auth('institution')->user()->affiliation_number ?? '') }}" 
+                           class="form-control @error('affiliation_number') is-invalid @enderror"
+                           placeholder="Enter Affiliation Number" required>
+                    @error('affiliation_number') 
                         <div class="invalid-feedback">{{ $message }}</div> 
                     @enderror
                 </div>
 
                 {{-- Organization Name --}}
                 <div class="col-md-6">
-                    <label class="form-label fw-semibold">Organization Name</label>
+                    <label class="form-label fw-semibold">Name of Students' Organization <span class="text-danger">*</span></label>
                     <input type="text" 
                            name="organization_name" 
                            value="{{ old('organization_name', $organization->organization_name ?? '') }}" 
-                           class="form-control @error('organization_name') is-invalid @enderror">
+                           class="form-control @error('organization_name') is-invalid @enderror"
+                           placeholder="Enter Organization Name" required>
                     @error('organization_name') 
                         <div class="invalid-feedback">{{ $message }}</div> 
                     @enderror
                 </div>
 
-                {{-- Director --}}
+                {{-- Contact Number --}}
                 <div class="col-md-6">
-                    <label class="form-label fw-semibold">Director Name</label>
+                    <label class="form-label fw-semibold">Contact No: (Specialised for Organization) <span class="text-danger">*</span></label>
                     <input type="text" 
-                           name="organization_director_name" 
-                           value="{{ old('organization_director_name', $organization->organization_director_name ?? '') }}" 
-                           class="form-control @error('organization_director_name') is-invalid @enderror">
-                    @error('organization_director_name') 
+                           name="contact_number" 
+                           value="{{ old('contact_number', $organization->contact_number ?? '') }}" 
+                           class="form-control @error('contact_number') is-invalid @enderror"
+                           placeholder="Enter Contact Number" required>
+                    @error('contact_number') 
                         <div class="invalid-feedback">{{ $message }}</div> 
                     @enderror
                 </div>
 
+                {{-- Email --}}
                 <div class="col-md-6">
-                    <label class="form-label fw-semibold">Director Number</label>
-                    <input type="text" 
-                           name="organization_director_number" 
-                           value="{{ old('organization_director_number', $organization->organization_director_number ?? '') }}" 
-                           class="form-control @error('organization_director_number') is-invalid @enderror">
-                    @error('organization_director_number') 
-                        <div class="invalid-feedback">{{ $message }}</div> 
-                    @enderror
-                </div>
-
-                {{-- Counciler --}}
-                <div class="col-md-6">
-                    <label class="form-label fw-semibold">Counciler Name</label>
-                    <input type="text" 
-                           name="counciler_name" 
-                           value="{{ old('counciler_name', $organization->counciler_name ?? '') }}" 
-                           class="form-control @error('counciler_name') is-invalid @enderror">
-                    @error('counciler_name') 
-                        <div class="invalid-feedback">{{ $message }}</div> 
-                    @enderror
-                </div>
-
-                <div class="col-md-6">
-                    <label class="form-label fw-semibold">Counciler Number</label>
-                    <input type="text" 
-                           name="counciler_number" 
-                           value="{{ old('counciler_number', $organization->counciler_number ?? '') }}" 
-                           class="form-control @error('counciler_number') is-invalid @enderror">
-                    @error('counciler_number') 
-                        <div class="invalid-feedback">{{ $message }}</div> 
-                    @enderror
-                </div>
-
-                {{-- Chairman --}}
-                <div class="col-md-6">
-                    <label class="form-label fw-semibold">Chairman Name</label>
-                    <input type="text" 
-                           name="chairman_name" 
-                           value="{{ old('chairman_name', $organization->chairman_name ?? '') }}" 
-                           class="form-control @error('chairman_name') is-invalid @enderror">
-                    @error('chairman_name') 
-                        <div class="invalid-feedback">{{ $message }}</div> 
-                    @enderror
-                </div>
-
-                <div class="col-md-6">
-                    <label class="form-label fw-semibold">Chairman Number</label>
-                    <input type="text" 
-                           name="chairman_number" 
-                           value="{{ old('chairman_number', $organization->chairman_number ?? '') }}" 
-                           class="form-control @error('chairman_number') is-invalid @enderror">
-                    @error('chairman_number') 
-                        <div class="invalid-feedback">{{ $message }}</div> 
-                    @enderror
-                </div>
-
-                {{-- Convenor --}}
-                <div class="col-md-6">
-                    <label class="form-label fw-semibold">Convenor Name</label>
-                    <input type="text" 
-                           name="convenor_name" 
-                           value="{{ old('convenor_name', $organization->convenor_name ?? '') }}" 
-                           class="form-control @error('convenor_name') is-invalid @enderror">
-                    @error('convenor_name') 
-                        <div class="invalid-feedback">{{ $message }}</div> 
-                    @enderror
-                </div>
-
-                <div class="col-md-6">
-                    <label class="form-label fw-semibold">Convenor Number</label>
-                    <input type="text" 
-                           name="convenor_number" 
-                           value="{{ old('convenor_number', $organization->convenor_number ?? '') }}" 
-                           class="form-control @error('convenor_number') is-invalid @enderror">
-                    @error('convenor_number') 
-                        <div class="invalid-feedback">{{ $message }}</div> 
-                    @enderror
-                </div>
-
-                {{-- Stream --}}
-                <div class="col-md-6">
-                    <label class="form-label fw-semibold">Stream</label>
-                    <select name="stream" class="form-select @error('stream') is-invalid @enderror" required>
-                        <option value="">-- Select Stream --</option>
-                        @foreach ($streams as $stream)
-                            <option value="{{ $stream }}" 
-                                {{ (old('stream', $organization->stream ?? '') == $stream) ? 'selected' : '' }}>
-                                {{ ucfirst($stream) }}
-                            </option>
-                        @endforeach
-                    </select>
-                    @error('stream') 
+                    <label class="form-label fw-semibold">Mail ID <span class="text-danger">*</span></label>
+                    <input type="email" 
+                           name="email" 
+                           value="{{ old('email', $organization->email ?? auth('institution')->user()->email) }}" 
+                           class="form-control @error('email') is-invalid @enderror"
+                           placeholder="Enter Mail ID" required>
+                    @error('email') 
                         <div class="invalid-feedback">{{ $message }}</div> 
                     @enderror
                 </div>
 
                 {{-- Submit --}}
-                <div class="col-12">
+                <div class="col-12 mt-4">
                     <button type="submit" class="btn btn-primary px-4">
                         {{ isset($organization) ? 'Update' : 'Save' }}
                     </button>
@@ -166,4 +98,3 @@
     </div>
 </div>
 @endsection
-

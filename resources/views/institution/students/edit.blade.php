@@ -178,10 +178,22 @@
                         @endif
 
                         {{-- Photo --}}
+                        @php
+                            $isBoysCollege = in_array(auth()->user()->stream, ['sharia', 'sharia plus', 'bayyinath']);
+                            $photoRequired = $isBoysCollege && !$student->photo;
+                        @endphp
                         <div class="col-md-12">
-                            <label for="photo" class="form-label fw-semibold text-dark">Change Photo <span class="text-muted fw-normal">(Optional)</span></label>
+                            <label for="photo" class="form-label fw-semibold text-dark">
+                                Change Photo 
+                                @if($photoRequired)
+                                    <span class="text-danger fw-normal">(Required)</span>
+                                @else
+                                    <span class="text-muted fw-normal">(Optional)</span>
+                                @endif
+                            </label>
                             <input type="file" name="photo" id="photo" accept="image/*"
-                                   class="form-control @error('photo') is-invalid @enderror">
+                                   class="form-control @error('photo') is-invalid @enderror"
+                                   {{ $photoRequired ? 'required' : '' }}>
                             @error('photo') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
 

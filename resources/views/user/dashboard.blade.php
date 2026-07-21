@@ -53,8 +53,7 @@
                             <div class="mt-3 text-start">
                                 <p class="mb-1"><strong>Stream:</strong> {{ ucfirst(str_replace('_', ' ', $student->stream)) }}
                                 </p>
-                                <p class="mb-1"><strong>Class:</strong> {{ strtoupper($student->class) }}</p>
-                                <p class="mb-0"><strong>Address:</strong> {{ $student->address }}</p>
+                                <p class="mb-0"><strong>Class:</strong> {{ strtoupper($student->class) }}</p>
                             </div>
 
                             <a href="{{ route('membership.download') }}" class="btn btn-outline-primary w-100 mt-3">

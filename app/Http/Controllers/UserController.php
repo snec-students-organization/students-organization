@@ -74,8 +74,6 @@ class UserController extends Controller
             'uid'            => 'required|string|unique:students,uid,' . ($student->id ?? 'NULL'),
             'stream'         => 'required|in:sharea,sharea_plus,she,she_plus,life,life_plus,bayyinath',
             'class'          => 'required|in:hs1,hs2,hs3,s1,s2,d1,d2,d3,d4,pg1,pg2',
-            'father_name'    => 'required|string|max:255',
-            'address'        => 'required|string|max:1000',
             'contact_number' => 'required|string|max:20',
         ];
 
@@ -128,14 +126,10 @@ class UserController extends Controller
         $student = Student::where('uid', $user->uid)->firstOrFail();
 
         $request->validate([
-            'father_name'    => 'required|string|max:255',
-            'address'        => 'required|string|max:500',
             'contact_number' => 'required|string|max:20',
         ]);
 
         $student->update([
-            'father_name'    => $request->father_name,
-            'address'        => $request->address,
             'contact_number' => $request->contact_number,
         ]);
 

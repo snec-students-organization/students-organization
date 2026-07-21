@@ -22,6 +22,10 @@ class InstitutionController extends Controller
 
     public function studentsStore(Request $request)
     {
+        $institution = auth()->user();
+        $isBoysCollege = in_array($institution->stream, ['sharia', 'sharia plus', 'bayyinath']);
+        $photoRule = $isBoysCollege ? 'required|image|mimes:jpeg,png,jpg,gif|max:2048' : 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048';
+
         $validated = $request->validate([
             'name'             => 'required|string|max:255',
             'uid'              => 'required|string|unique:students,uid',
@@ -35,7 +39,7 @@ class InstitutionController extends Controller
             'constituency'     => 'required|string|max:100',
             'place'            => 'required|string|max:100',
             'date_of_birth'    => 'required|date|before:today',
-            'photo'            => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'photo'            => $photoRule,
             'interested_areas' => 'nullable|array',
             'interested_areas.*' => 'string|max:100',
         ]);
@@ -72,6 +76,10 @@ class InstitutionController extends Controller
 
     public function studentsUpdate(Request $request, Student $student)
     {
+        $institution = auth()->user();
+        $isBoysCollege = in_array($institution->stream, ['sharia', 'sharia plus', 'bayyinath']);
+        $photoRule = ($isBoysCollege && !$student->photo) ? 'required|image|mimes:jpeg,png,jpg,gif|max:2048' : 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048';
+
         $validated = $request->validate([
             'name'               => 'required|string|max:255',
             'uid'                => 'required|string|unique:students,uid,' . $student->id,
@@ -85,7 +93,7 @@ class InstitutionController extends Controller
             'constituency'       => 'required|string|max:100',
             'place'              => 'required|string|max:100',
             'date_of_birth'      => 'required|date|before:today',
-            'photo'              => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'photo'              => $photoRule,
             'interested_areas'   => 'nullable|array',
             'interested_areas.*' => 'string|max:100',
         ]);

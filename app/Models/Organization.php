@@ -12,16 +12,10 @@ class Organization extends Model
    protected $fillable = [
     'institution_id',
     'college_name',
+    'affiliation_number',
     'organization_name',
-    'organization_director_name',
-    'organization_director_number',
-    'counciler_name',
-    'counciler_number',
-    'chairman_name',
-    'chairman_number',
-    'convenor_name',
-    'convenor_number',
-    'stream',
+    'contact_number',
+    'email',
     'status',
 ];
 

@@ -247,10 +247,7 @@
                         <div class="detail-value">{{ strtoupper($student->class) }}</div>
                     </div>
 
-                    <div class="detail-row">
-                        <div class="detail-label">Address:</div>
-                        <div class="detail-value">{{ $student->address }}</div>
-                    </div>
+
                     
                     <div class="membership-number">
                         <div class="membership-label">Membership Number</div>
